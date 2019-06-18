@@ -1,0 +1,9 @@
+SAVYRM\PROJECT\Entities\ProductoSeccion.class
+SAVYRM\PROJECT\Entities\Lote.class
+SAVYRM\PROJECT\Entities\Log.class
+SAVYRM\PROJECT\Respositories\LogRepository.class
+SAVYRM\PROJECT\Controllers\LogController.class
+SAVYRM\PROJECT\SavyrmApplication.class
+SAVYRM\PROJECT\Controllers\LoteController.class
+SAVYRM\PROJECT\Respositories\LoteRepository.class
+SAVYRM\PROJECT\Respositories\ProductoSeccionRepository.class
