@@ -2,10 +2,12 @@ package SAVYRM.PROJECT.Controllers;
 
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Producto;
+import SAVYRM.PROJECT.Entities.ProductoFormula;
 import SAVYRM.PROJECT.Entities.Seccion;
 import SAVYRM.PROJECT.Entities.TipoProducto;
 import SAVYRM.PROJECT.Entities.UnidadMedida;
 import SAVYRM.PROJECT.Respositories.ProductoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,16 +82,50 @@ public class ProductoController {
         return newProducto != null ? 1:0;
     }
     
-    @GetMapping(path="/getAllProductoNoFinalesActivos")
-    public @ResponseBody Iterable<Producto> getAllProductoNoFinalesActivos()
+    @GetMapping(path="/GetAllProductoNoFinalesActivos")
+    public @ResponseBody Iterable<Producto> GetAllProductoNoFinalesActivos()
     {   
-        System.out.println("getAllProductoNoFinalesActivos()->");
+        System.out.println("GetAllProductoNoFinalesActivos()->");
         //System.out.println("Params:"+ allParams.size());
-        System.out.println("getAllProductoNoFinalesActivos()<-");
+        System.out.println("GetAllProductoNoFinalesActivos()<-");
         int estadoProducto, idTipoProductoFINAL; // this values should be populated dinamically
         estadoProducto = 1;
         idTipoProductoFINAL = 1;
         //return productoRepository.findAllByEstadoProductoDistinctTipoProductoIdTipoProducto(estadoProducto, idTipoProductoFINAL);
         return productoRepository.findByEstadoProductoAndTipoProductoIdTipoProductoNot(estadoProducto, idTipoProductoFINAL);
+    }
+    
+    @PostMapping(path="/AgregarProductoAFormula")
+    @ResponseBody
+    public boolean AgregarProductoAFormula(@RequestBody Map<String,String> allParams)
+    {   
+        boolean result = false;
+        System.out.println("AgregarProductoAFormula()->");
+        
+        try {        
+            System.out.println("Params:"+ allParams.size());
+            String idProductoSeleccionadoParaFormula = allParams.get("idProductoSeleccionadoParaFormula");
+            System.out.println("idProductoSeleccionadoParaFormula:"+ allParams.get("idProductoSeleccionadoParaFormula"));
+            
+            String cantidadProductoParaFormulaNP = allParams.get("cantidadProductoParaFormulaNP");
+            System.out.println("cantidadProductoParaFormulaNP:"+ allParams.get("cantidadProductoParaFormulaNP"));
+            
+            String productosDeLaFormulaActual = allParams.get("productosDeLaFormulaActual");
+            System.out.println("productosDeLaFormulaActual:"+ allParams.get("productosDeLaFormulaActual"));
+
+            ObjectMapper om = new ObjectMapper();
+            ProductoFormula[] formulaActual = om.readValue(productosDeLaFormulaActual, ProductoFormula[].class);
+            System.out.println("formulaActual:"+ formulaActual[0].getPorcentaje());
+        }
+        catch(Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        finally
+        {
+            System.out.println("AgregarProductoAFormula()<-" + result);
+        }
+        return result;
+        //return productoRepository.findAllByEstadoProductoDistinctTipoProductoIdTipoProducto(estadoProducto, idTipoProductoFINAL);
+        //return productoRepository.findByEstadoProductoAndTipoProductoIdTipoProductoNot(estadoProducto, idTipoProductoFINAL);
     }
 }
