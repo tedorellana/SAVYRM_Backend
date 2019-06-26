@@ -103,9 +103,10 @@ public class ProductoController {
         System.out.println("AgregarProductoAFormula()->");
         
         try {        
+            //Getting files
             System.out.println("Params:"+ allParams.size());
-            String idProductoSeleccionadoParaFormula = allParams.get("idProductoSeleccionadoParaFormula");
-            System.out.println("idProductoSeleccionadoParaFormula:"+ allParams.get("idProductoSeleccionadoParaFormula"));
+            String idProductoSeleccionadoParaFormula = allParams.get("idProducto");
+            System.out.println("idProducto:"+ allParams.get("idProducto"));
             
             String cantidadProductoParaFormulaNP = allParams.get("cantidadProductoParaFormulaNP");
             System.out.println("cantidadProductoParaFormulaNP:"+ allParams.get("cantidadProductoParaFormulaNP"));
@@ -116,6 +117,14 @@ public class ProductoController {
             ObjectMapper om = new ObjectMapper();
             ProductoFormula[] formulaActual = om.readValue(productosDeLaFormulaActual, ProductoFormula[].class);
             System.out.println("formulaActual:"+ formulaActual[0].getPorcentaje());
+            
+            //Reviewing data
+            
+            
+            //Preparing result
+            
+            
+            
         }
         catch(Exception ex) {
             System.out.println("ERROR: " + ex);
