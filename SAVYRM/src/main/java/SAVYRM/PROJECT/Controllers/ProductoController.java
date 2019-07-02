@@ -7,8 +7,13 @@ import SAVYRM.PROJECT.Entities.Seccion;
 import SAVYRM.PROJECT.Entities.TipoProducto;
 import SAVYRM.PROJECT.Entities.UnidadMedida;
 import SAVYRM.PROJECT.Respositories.ProductoRepository;
+import SAVYRM.PROJECT.Utilities.MeasurementsUtilities;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -115,12 +120,21 @@ public class ProductoController {
             System.out.println("productosDeLaFormulaActual:"+ allParams.get("productosDeLaFormulaActual"));
 
             ObjectMapper om = new ObjectMapper();
-            ProductoFormula[] formulaActual = om.readValue(productosDeLaFormulaActual, ProductoFormula[].class);
-            System.out.println("formulaActual:"+ formulaActual[0].getPorcentaje());
+            List<ProductoFormula> formulaActual = om.readValue(productosDeLaFormulaActual, (new ArrayList<ProductoFormula>()).getClass());
+            
+            ProductoFormula newProductAddedToFormula = new ProductoFormula();
+            System.out.println("preparing new product");
+            newProductAddedToFormula.setIdProductoFormula(Integer.parseInt(idProductoSeleccionadoParaFormula));
+            newProductAddedToFormula.setCantidad(Double.parseDouble(cantidadProductoParaFormulaNP));
             
             //Reviewing data
-            
-            
+            List<ProductoFormula> finalListToUpdated= MeasurementsUtilities.CalculatePercentOfProdudctsInvoledInFormula(formulaActual, newProductAddedToFormula);
+            //Updating percents for all products involved
+            System.out.println("-------------------------");
+            for (ProductoFormula pf : finalListToUpdated) {
+                System.out.println(pf.getIdProductoFormula() + "_" + pf.getCantidad() + "_" + pf.getPorcentaje());
+            }
+            System.out.println("-------------------------");
             //Preparing result
             
             
@@ -136,5 +150,9 @@ public class ProductoController {
         return result;
         //return productoRepository.findAllByEstadoProductoDistinctTipoProductoIdTipoProducto(estadoProducto, idTipoProductoFINAL);
         //return productoRepository.findByEstadoProductoAndTipoProductoIdTipoProductoNot(estadoProducto, idTipoProductoFINAL);
+        
     }
+    
+    
 }
+

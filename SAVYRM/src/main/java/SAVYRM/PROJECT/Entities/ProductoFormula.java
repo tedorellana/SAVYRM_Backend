@@ -18,7 +18,7 @@ public class ProductoFormula {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idProductoFormula;
     private Double porcentaje;
-    private Integer cantidad;
+    private Double cantidad;
     
     @ManyToOne
     @JoinColumn(name = "fk_idProductoElaborado")
@@ -50,11 +50,11 @@ public class ProductoFormula {
         this.porcentaje = porcentaje;
     }
 
-    public Integer getCantidad() {
+    public Double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
 
