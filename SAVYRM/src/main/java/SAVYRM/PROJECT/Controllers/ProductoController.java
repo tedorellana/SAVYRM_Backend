@@ -9,6 +9,7 @@ import SAVYRM.PROJECT.Entities.UnidadMedida;
 import SAVYRM.PROJECT.Respositories.ProductoRepository;
 import SAVYRM.PROJECT.Utilities.MeasurementsUtilities;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -119,8 +120,8 @@ public class ProductoController {
             String productosDeLaFormulaActual = allParams.get("productosDeLaFormulaActual");
             System.out.println("productosDeLaFormulaActual:"+ allParams.get("productosDeLaFormulaActual"));
 
-            ObjectMapper om = new ObjectMapper();
-            List<ProductoFormula> formulaActual = om.readValue(productosDeLaFormulaActual, (new ArrayList<ProductoFormula>()).getClass());
+            Gson gson = new Gson();
+            ArrayList<ProductoFormula> formulaActual = (ArrayList<ProductoFormula>) gson.fromJson(productosDeLaFormulaActual, (new ArrayList<ProductoFormula>()).getClass());
             
             ProductoFormula newProductAddedToFormula = new ProductoFormula();
             System.out.println("preparing new product");

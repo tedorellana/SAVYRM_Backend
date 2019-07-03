@@ -1,6 +1,7 @@
 package SAVYRM.PROJECT.Utilities;
 
 import SAVYRM.PROJECT.Entities.ProductoFormula;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
@@ -19,7 +20,7 @@ public class MeasurementsUtilities {
     }
     
     ///TODO:This part should be reviwed in order to shown a real percent
-    public static List<ProductoFormula> CalculatePercentOfProdudctsInvoledInFormula(List<ProductoFormula> productsInvolved, ProductoFormula productAdded){
+    public static List<ProductoFormula> CalculatePercentOfProdudctsInvoledInFormula(ArrayList<ProductoFormula> productsInvolved, ProductoFormula productAdded){
         System.out.println("CalculatePercentOfProdudctsInvoledInFormula<-");
         List<ProductoFormula> result = new ArrayList<ProductoFormula>();
         double oldTotal = 0.0;
@@ -27,10 +28,15 @@ public class MeasurementsUtilities {
         
         try
         {
-            System.out.println("Reviewing old total");
+            System.out.println("Reviewing old total" + productsInvolved.size());
             //for (ProductoFormula productInvolved : productsInvolved) {
+            //ObjectMapper om = new ObjectMapper();
+            
             for (int i = 0; i < productsInvolved.size(); i++) {
-                oldTotal += productsInvolved.get(i).getCantidad();
+                System.out.println("Element: " + i);
+                System.out.println("\t->" + productsInvolved.getClass() );
+                System.out.println("\t->" + productsInvolved.get(i).getCantidad());
+                //oldTotal += productsInvolved.get(i).getCantidad();
             }
             
             System.out.println("Old total:" + oldTotal);
