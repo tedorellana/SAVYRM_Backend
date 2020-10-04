@@ -3,10 +3,12 @@ package SAVYRM.PROJECT.Controllers;
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Producto;
 import SAVYRM.PROJECT.Entities.ProductoFormula;
+import SAVYRM.PROJECT.Entities.ProductoSeccion;
 import SAVYRM.PROJECT.Entities.Seccion;
 import SAVYRM.PROJECT.Entities.TipoProducto;
 import SAVYRM.PROJECT.Entities.UnidadMedida;
 import SAVYRM.PROJECT.Respositories.ProductoRepository;
+import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import SAVYRM.PROJECT.Utilities.MeasurementsUtilities;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -31,6 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProductoController {
     @Autowired
     private ProductoRepository productoRepository;
+    @Autowired
+    private ProductoSeccionRepository productoSeccionRepository;
     
     @GetMapping(path="/GetProducto")
     public @ResponseBody Iterable<Producto> GetAllProducto()
@@ -154,6 +158,22 @@ public class ProductoController {
         
     }
     
-    
+    @GetMapping(path="/GetAllProductosParaVenta")
+    public @ResponseBody Iterable<ProductoSeccion> GetAllProductosParaVenta()
+    {   
+        System.out.println("GetAllProductosParaVenta()->");
+
+        try {        
+            return productoSeccionRepository.findAll();            
+        }
+        catch(Exception ex) {
+            System.out.println("ERROR (GetAllProductosParaVenta): " + ex);
+        }
+        finally
+        {
+            System.out.println("GetAllProductosParaVenta()<-");
+        }
+        return null;
+    }
 }
 

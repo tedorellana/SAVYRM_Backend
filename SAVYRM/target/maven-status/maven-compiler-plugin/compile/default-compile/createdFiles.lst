@@ -56,6 +56,7 @@ SAVYRM\PROJECT\Controllers\TipoProductoController.class
 SAVYRM\PROJECT\Controllers\TipoUsuarioController.class
 SAVYRM\PROJECT\Controllers\UnidadMedidaController.class
 SAVYRM\PROJECT\Respositories\SeccionRepository.class
+SAVYRM\PROJECT\Utilities\MeasurementsUtilities.class
 SAVYRM\PROJECT\Entities\Formula.class
 SAVYRM\PROJECT\Respositories\AlmacenRepository.class
 SAVYRM\PROJECT\Respositories\UsuarioRepository.class
