@@ -1,5 +1,6 @@
 package SAVYRM.PROJECT.Controllers;
 
+import SAVYRM.Containers.ProductoSeccionPrecio;
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Producto;
 import SAVYRM.PROJECT.Entities.ProductoFormula;
@@ -159,12 +160,13 @@ public class ProductoController {
     }
     
     @GetMapping(path="/GetAllProductosParaVenta")
-    public @ResponseBody Iterable<ProductoSeccion> GetAllProductosParaVenta()
+    public @ResponseBody Iterable<ProductoSeccionPrecio> GetAllProductosParaVenta()
     {   
         System.out.println("GetAllProductosParaVenta()->");
 
         try {        
-            return productoSeccionRepository.findAll();            
+            //System.out.println("->>>>" + productoSeccionRepository.findProductoSeccionWithPrecio());
+            return productoSeccionRepository.findProductoSeccionWithPrecio();            
         }
         catch(Exception ex) {
             System.out.println("ERROR (GetAllProductosParaVenta): " + ex);

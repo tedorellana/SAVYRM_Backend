@@ -1,4 +1,6 @@
 SAVYRM\PROJECT\Respositories\TipoPersonaRepository.class
+SAVYRM\Containers\ElementosDelCarrito.class
+SAVYRM\Containers\CarritoDeCompras.class
 SAVYRM\PROJECT\Controllers\PrecioController.class
 SAVYRM\PROJECT\Entities\Persona.class
 SAVYRM\PROJECT\Controllers\AlmacenController.class
@@ -7,6 +9,7 @@ SAVYRM\PROJECT\Entities\Servicio.class
 SAVYRM\PROJECT\Entities\ProductoSeccion.class
 SAVYRM\PROJECT\Entities\TipoPersona.class
 SAVYRM\PROJECT\Respositories\PersonaRepository.class
+SAVYRM\PROJECT\Controllers\VentaController.class
 SAVYRM\PROJECT\Controllers\TipoServicioController.class
 SAVYRM\PROJECT\Respositories\ServicioRepository.class
 SAVYRM\PROJECT\Respositories\ProductoRepository.class
@@ -19,6 +22,7 @@ SAVYRM\PROJECT\Respositories\TipoUsuarioRepository.class
 SAVYRM\PROJECT\Entities\Lote.class
 SAVYRM\PROJECT\Entities\TipoProducto.class
 SAVYRM\PROJECT\Controllers\PersonaController.class
+SAVYRM\Containers\ProductoSeccionPrecio.class
 SAVYRM\PROJECT\Entities\Log.class
 SAVYRM\PROJECT\Respositories\PrecioRepository.class
 SAVYRM\PROJECT\Entities\Seccion.class

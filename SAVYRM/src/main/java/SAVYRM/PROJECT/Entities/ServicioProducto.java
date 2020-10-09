@@ -53,6 +53,23 @@ public class ServicioProducto {
     public void setCantidadServicioProducto(Double cantidadServicioProducto) {
         this.cantidadServicioProducto = cantidadServicioProducto;
     }
+
+    public ProductoSeccion getProductoSeccion() {
+        return productoSeccion;
+    }
+
+    public void setProductoSeccion(ProductoSeccion productoSeccion) {
+        this.productoSeccion = productoSeccion;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
     
     
 }
