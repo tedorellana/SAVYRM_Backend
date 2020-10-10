@@ -1,7 +1,7 @@
 package SAVYRM.PROJECT.Controllers;
 
-import SAVYRM.Containers.CarritoDeCompras;
-import SAVYRM.Containers.ElementosDelCarrito;
+import SAVYRM.Containers.CarritoDeCompraWrapper;
+import SAVYRM.Containers.CarritoDeCompra;
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Persona;
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
@@ -34,7 +34,7 @@ public class VentaController {
     
     @PostMapping(path="/RegistrarVenta")
     @ResponseBody
-    public void RegistrarVenta(@RequestBody CarritoDeCompras carritoDeCompras)
+    public void RegistrarVenta(@RequestBody CarritoDeCompraWrapper carritoDeCompraWrapper)
     {   
         System.out.println("RegistrarVenta()");
         
@@ -55,20 +55,20 @@ public class VentaController {
         venta.setTipoServicio(tipoServicio);
         
         System.out.println("RegistrarVenta 2");
-        System.out.println("Elementos: " + carritoDeCompras.toString());
-        System.out.println("Elementos: " + carritoDeCompras.getElementos() );
-    
-        for (int i = 0; 0 < carritoDeCompras.getElementos().size(); i++) {
-             System.out.println("registrando elemento");
+        System.out.println("Elementos: " + carritoDeCompraWrapper.toString());
+        System.out.println("Elementos: " + carritoDeCompraWrapper.getCarritoDeCompras());
+        
+        for (CarritoDeCompra prod : carritoDeCompraWrapper.getCarritoDeCompras()) {
+            System.out.println("registrando elemento");
             ProductoSeccion productoSeccion = new ProductoSeccion();
-            productoSeccion.setIdProductoSeccion(carritoDeCompras.getElementos().get(i).getIdProductoSeccion());
+            productoSeccion.setIdProductoSeccion(prod.getIdProductoSeccion());
         
             ServicioProducto servicioProducto = new ServicioProducto();
-            servicioProducto.setCantidadServicioProducto(carritoDeCompras.getElementos().get(i).getCantidad());
+            servicioProducto.setCantidadServicioProducto(prod.getCantidad());
             servicioProducto.setCostoTotal(100.00); // TODO: debe ser calculado y no tomado por la vista
             servicioProducto.setServicio(venta);
             servicioProducto.setProductoSeccion(productoSeccion);
-            System.out.println("saving servicioProductoRepository ->" + carritoDeCompras.getElementos().get(i).getCantidad());
+            System.out.println("saving servicioProductoRepository ->" + prod.getCantidad());
             servicioProductoRepository.save(servicioProducto);
         }
     }

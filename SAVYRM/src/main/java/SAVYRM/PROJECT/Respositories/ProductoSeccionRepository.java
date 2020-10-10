@@ -10,7 +10,9 @@ public interface ProductoSeccionRepository extends PagingAndSortingRepository<Pr
     Iterable<ProductoSeccion> findAllBySeccionIdSeccionIn(Iterable<Integer> idSeccion);
 
     @Query(
-            value = "SELECT ps.idProductoSeccion FROM producto p " +
+            value = "SELECT p.nombreProducto, ps.idProductoSeccion, ps.cantidadProductoSeccion, " +
+                "ps.fechaIngreso, pr.idPrecio, pr.unitarioPrecio, pr.vigentePrecio, p.codigoProducto, " + 
+                "um.abreviacion FROM producto p " +
                 "inner join productoseccion ps on p.idProducto = ps.fk_idProducto " +
                 "inner join lote l on l.idLote = ps.fk_idLote " +
                 "inner join unidadmedida um on um.idUnidadMedida = p.fk_idUnidadMedida " +

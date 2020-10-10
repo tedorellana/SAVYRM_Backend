@@ -164,17 +164,14 @@ public class ProductoController {
     {   
         System.out.println("GetAllProductosParaVenta()->");
 
-        try {        
-            //System.out.println("->>>>" + productoSeccionRepository.findProductoSeccionWithPrecio());
-            return productoSeccionRepository.findProductoSeccionWithPrecio();            
+        try {
+            return productoSeccionRepository.findProductoSeccionWithPrecio();
         }
         catch(Exception ex) {
             System.out.println("ERROR (GetAllProductosParaVenta): " + ex);
         }
-        finally
-        {
-            System.out.println("GetAllProductosParaVenta()<-");
-        }
+        
+        System.out.println("GetAllProductosParaVenta()<-");
         return null;
     }
 }
