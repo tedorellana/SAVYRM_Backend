@@ -13,7 +13,9 @@ import java.util.List;
  */
 public class CarritoDeCompraWrapper {
     List<CarritoDeCompra> carritoDeCompras;
-
+    
+    DetallesServicio detallesServicio;
+    
     public List<CarritoDeCompra> getCarritoDeCompras() {
         return carritoDeCompras;
     }
@@ -22,5 +24,11 @@ public class CarritoDeCompraWrapper {
         this.carritoDeCompras = carritoDeCompras;
     }
 
-    
+    public DetallesServicio getDetallesServicio() {
+        return detallesServicio;
+    }
+
+    public void setDetallesServicio(DetallesServicio detallesServicio) {
+        this.detallesServicio = detallesServicio;
+    }
 }

@@ -1,4 +1,5 @@
 SAVYRM\PROJECT\Respositories\TipoPersonaRepository.class
+SAVYRM\PROJECT\Utilities\DateTimeUtilities.class
 SAVYRM\PROJECT\Controllers\PrecioController.class
 SAVYRM\PROJECT\Entities\Persona.class
 SAVYRM\PROJECT\Controllers\AlmacenController.class
@@ -39,6 +40,7 @@ SAVYRM\PROJECT\Respositories\TipoProductoRepository.class
 SAVYRM\PROJECT\Controllers\LoteController.class
 SAVYRM\PROJECT\Entities\Precio.class
 SAVYRM\PROJECT\Entities\Usuario.class
+SAVYRM\Containers\DetallesServicio.class
 SAVYRM\PROJECT\Entities\TipoServicio.class
 SAVYRM\PROJECT\Entities\ServicioProducto.class
 SAVYRM\PROJECT\Entities\Indicacion.class
@@ -53,6 +55,7 @@ SAVYRM\PROJECT\Controllers\ServicioProductoController.class
 SAVYRM\PROJECT\Controllers\ProductoSeccionController.class
 SAVYRM\PROJECT\Entities\ProductoFormula.class
 SAVYRM\PROJECT\Respositories\FormulaRepository.class
+SAVYRM\Containers\PersistentData.class
 SAVYRM\PROJECT\Respositories\ProductoSeccionRepository.class
 SAVYRM\PROJECT\Entities\Almacen.class
 SAVYRM\Containers\CarritoDeCompraWrapper.class

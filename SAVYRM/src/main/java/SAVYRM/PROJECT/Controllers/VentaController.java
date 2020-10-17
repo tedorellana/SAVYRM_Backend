@@ -2,6 +2,7 @@ package SAVYRM.PROJECT.Controllers;
 
 import SAVYRM.Containers.CarritoDeCompraWrapper;
 import SAVYRM.Containers.CarritoDeCompra;
+import SAVYRM.Containers.PersistentData;
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Persona;
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
@@ -12,6 +13,7 @@ import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import SAVYRM.PROJECT.Respositories.SeccionRepository;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
 import SAVYRM.PROJECT.Respositories.ServicioRepository;
+import SAVYRM.PROJECT.Utilities.DateTimeUtilities;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -45,42 +47,53 @@ public class VentaController {
     {   
         System.out.println("RegistrarVenta()");
         
+        if (carritoDeCompraWrapper.getDetallesServicio() == null) {
+            System.out.println("ERROR: Detalles del servicio es NULL.");
+            return;
+        }
+        
         //TODO: Debe jalar valor de la BD
+        System.out.println("Establece tipo servicio.");
         TipoServicio tipoServicio = new TipoServicio();
-        tipoServicio.setIdTipoServicio(2);
+        tipoServicio.setIdTipoServicio(PersistentData.VENTA_IDSERVICIO);
         
+        // Establece empleado
+        System.out.println("Establece empleado.");
         Persona empleado = new Persona();
-        empleado.setIdPersona(1); // TODO: poblar id de manera dinámica
+        empleado.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idEmpleado);
         
+        // Establece cliente
+        System.out.println("Establece cliente.");
         Persona cliente = new Persona();
-        cliente.setIdPersona(1); // TODO: poblar id de manera dinámica
+        cliente.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idEmpleado);
         
+        // Establece la venta 
+        System.out.println("Establece servicio.");
         Servicio venta = new Servicio();
-        venta.setHoraInicioServicio("2017-07-05 20:25:34.663000");
-        venta.setHoraFinServicio("2017-07-05 20:25:34.663000");
+        venta.setHoraInicioServicio(carritoDeCompraWrapper.getDetallesServicio().getDateTimeServiceBegin());
+        venta.setHoraFinServicio(DateTimeUtilities.GetCurrentDateTime());
         venta.setPersonaEmpleado(cliente);
         venta.setPersonaAtendida(empleado);
         venta.setTipoServicio(tipoServicio); 
         venta.setTipoServicio(tipoServicio);
         
-        // Add Servicio
+        // Guarda el servicio
         venta = servicioRepository.save(venta);
         
-        System.out.println("RegistrarVenta 2");
-        System.out.println("Elementos: " + carritoDeCompraWrapper.toString());
-        System.out.println("Elementos: " + carritoDeCompraWrapper.getCarritoDeCompras());
-        
         for (CarritoDeCompra prod : carritoDeCompraWrapper.getCarritoDeCompras()) {
-            System.out.println("registrando elemento");
+            // Establece productoSeccion
             ProductoSeccion productoSeccion = new ProductoSeccion();
             productoSeccion.setIdProductoSeccion(prod.getIdProductoSeccion());
-        
+            
+            // Establece servicioProducto
             ServicioProducto servicioProducto = new ServicioProducto();
             servicioProducto.setCantidadServicioProducto(prod.getCantidad());
             servicioProducto.setCostoTotal(100.00); // TODO: debe ser calculado y no tomado por la vista
             servicioProducto.setServicio(venta);
             servicioProducto.setProductoSeccion(productoSeccion);
-            System.out.println("saving servicioProductoRepository ->" + prod.getCantidad());
+            
+            System.out.println("guarda ServicioProducto: " + prod.getNombreProducto());
+            // Guarda la producto
             servicioProductoRepository.save(servicioProducto);
         }
     }
