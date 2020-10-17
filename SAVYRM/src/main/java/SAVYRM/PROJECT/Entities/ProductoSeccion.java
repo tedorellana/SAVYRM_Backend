@@ -35,7 +35,7 @@ public class ProductoSeccion {
     private Seccion seccion;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "productoSeccion", cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "productoSeccion", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ServicioProducto> servicioProducto;
     
     public ProductoSeccion(){

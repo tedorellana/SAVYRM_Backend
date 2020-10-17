@@ -24,7 +24,7 @@ public class Servicio {
     private String horaEdicionServicio;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ServicioProducto> servicioProducto;
     
     @ManyToOne

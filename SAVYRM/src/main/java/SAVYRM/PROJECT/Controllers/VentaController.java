@@ -11,11 +11,15 @@ import SAVYRM.PROJECT.Entities.TipoServicio;
 import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import SAVYRM.PROJECT.Respositories.SeccionRepository;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
+import SAVYRM.PROJECT.Respositories.ServicioRepository;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +35,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class VentaController {
     @Autowired
     private ServicioProductoRepository servicioProductoRepository;
+    
+    @Autowired
+    private ServicioRepository servicioRepository;
     
     @PostMapping(path="/RegistrarVenta")
     @ResponseBody
@@ -49,10 +56,15 @@ public class VentaController {
         cliente.setIdPersona(1); // TODO: poblar id de manera dinámica
         
         Servicio venta = new Servicio();
-        venta.setHoraInicioServicio("");
-        venta.setHoraFinServicio("");
+        venta.setHoraInicioServicio("2017-07-05 20:25:34.663000");
+        venta.setHoraFinServicio("2017-07-05 20:25:34.663000");
+        venta.setPersonaEmpleado(cliente);
+        venta.setPersonaAtendida(empleado);
         venta.setTipoServicio(tipoServicio); 
         venta.setTipoServicio(tipoServicio);
+        
+        // Add Servicio
+        venta = servicioRepository.save(venta);
         
         System.out.println("RegistrarVenta 2");
         System.out.println("Elementos: " + carritoDeCompraWrapper.toString());
