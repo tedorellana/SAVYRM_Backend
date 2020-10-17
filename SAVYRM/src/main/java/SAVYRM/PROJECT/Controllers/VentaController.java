@@ -9,11 +9,13 @@ import SAVYRM.PROJECT.Entities.ProductoSeccion;
 import SAVYRM.PROJECT.Entities.Servicio;
 import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Entities.TipoServicio;
+import SAVYRM.PROJECT.Respositories.PrecioRepository;
 import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import SAVYRM.PROJECT.Respositories.SeccionRepository;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
 import SAVYRM.PROJECT.Respositories.ServicioRepository;
 import SAVYRM.PROJECT.Utilities.DateTimeUtilities;
+import SAVYRM.PROJECT.Utilities.VentaUtilities;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,7 +41,13 @@ public class VentaController {
     private ServicioProductoRepository servicioProductoRepository;
     
     @Autowired
+    private ProductoSeccionRepository productoSeccionRepository;
+    
+    @Autowired
     private ServicioRepository servicioRepository;
+    
+    @Autowired
+    private PrecioRepository precioRepository;
     
     @PostMapping(path="/RegistrarVenta")
     @ResponseBody
@@ -51,24 +59,24 @@ public class VentaController {
             System.out.println("ERROR: Detalles del servicio es NULL.");
             return;
         }
-        
+                
         //TODO: Debe jalar valor de la BD
         System.out.println("Establece tipo servicio.");
         TipoServicio tipoServicio = new TipoServicio();
         tipoServicio.setIdTipoServicio(PersistentData.VENTA_IDSERVICIO);
         
         // Establece empleado
-        System.out.println("Establece empleado.");
+        System.out.println("Set employe.");
         Persona empleado = new Persona();
         empleado.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idEmpleado);
         
         // Establece cliente
-        System.out.println("Establece cliente.");
+        System.out.println("Ser Client.");
         Persona cliente = new Persona();
         cliente.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idEmpleado);
         
         // Establece la venta 
-        System.out.println("Establece servicio.");
+        System.out.println("set Service.");
         Servicio venta = new Servicio();
         venta.setHoraInicioServicio(carritoDeCompraWrapper.getDetallesServicio().getDateTimeServiceBegin());
         venta.setHoraFinServicio(DateTimeUtilities.GetCurrentDateTime());
@@ -82,17 +90,26 @@ public class VentaController {
         
         for (CarritoDeCompra prod : carritoDeCompraWrapper.getCarritoDeCompras()) {
             // Establece productoSeccion
+            System.out.println("Set ProductoSeccion.");
             ProductoSeccion productoSeccion = new ProductoSeccion();
-            productoSeccion.setIdProductoSeccion(prod.getIdProductoSeccion());
+            productoSeccion = productoSeccionRepository.findById(prod.getIdProductoSeccion()).get(); // Get the first one occurence.
+            productoSeccion.setCantidadProductoSeccion(VentaUtilities.CalculateNewStock(productoSeccion.getCantidadProductoSeccion() ,prod.getCantidad()));
+            System.out.println("ProductoSeccion id to be updates: " + productoSeccion.getIdProductoSeccion());
+            productoSeccionRepository.save(productoSeccion);
             
+            System.out.println("Get precio for producto: " + productoSeccion.getProducto().getIdProducto());
+            double currentPrice = precioRepository.findByProductoIdProductoAndVigentePrecio(productoSeccion.getProducto().getIdProducto(), PersistentData.VIGENTE_PRECIO).iterator().next().getUnitarioPrecio();
+            System.out.println("Get precio for producto (currentPrice): " + currentPrice);
+            
+            System.out.println("Set servicioProducto");
             // Establece servicioProducto
             ServicioProducto servicioProducto = new ServicioProducto();
             servicioProducto.setCantidadServicioProducto(prod.getCantidad());
-            servicioProducto.setCostoTotal(100.00); // TODO: debe ser calculado y no tomado por la vista
+            servicioProducto.setCostoTotal(VentaUtilities.CalculatePrice(prod.getCantidad(), 0)); // TODO: debe ser calculado y no tomado por la vista
             servicioProducto.setServicio(venta);
             servicioProducto.setProductoSeccion(productoSeccion);
             
-            System.out.println("guarda ServicioProducto: " + prod.getNombreProducto());
+            System.out.println("save ServicioProducto: " + prod.getNombreProducto());
             // Guarda la producto
             servicioProductoRepository.save(servicioProducto);
         }

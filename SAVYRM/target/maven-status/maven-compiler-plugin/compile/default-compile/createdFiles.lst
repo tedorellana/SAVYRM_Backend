@@ -17,6 +17,7 @@ SAVYRM\PROJECT\Controllers\PreparacionController.class
 SAVYRM\PROJECT\Controllers\TipoPersonaController.class
 SAVYRM\PROJECT\Entities\Producto.class
 SAVYRM\PROJECT\Controllers\FormulaController.class
+SAVYRM\PROJECT\Utilities\VentaUtilities.class
 SAVYRM\PROJECT\Respositories\TipoUsuarioRepository.class
 SAVYRM\PROJECT\Entities\Lote.class
 SAVYRM\PROJECT\Entities\TipoProducto.class

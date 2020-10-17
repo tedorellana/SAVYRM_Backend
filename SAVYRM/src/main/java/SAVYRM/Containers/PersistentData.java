@@ -15,5 +15,7 @@ public class PersistentData {
     public static final int VENTA_IDSERVICIO = 1;
     // Asesoria id guardado en la base de datos
     public static final int ASESORIA_IDSERVICIO = 2;
+    // Vigente precio
+    public static final int VIGENTE_PRECIO = 1;
     
 }
