@@ -19,7 +19,7 @@ public class ServicioProducto {
     private Integer idServicioProductoSeccion;
     private Double costoTotal;
     private Double cantidadServicioProducto;
-    private boolean entregado;
+    private Boolean entregado;
     private String fechaEntrega;
     
     @ManyToOne
@@ -72,11 +72,11 @@ public class ServicioProducto {
         this.servicio = servicio;
     }
 
-    public boolean isEntregado() {
+    public Boolean isEntregado() {
         return entregado;
     }
 
-    public void setEntregado(boolean entregado) {
+    public void setEntregado(Boolean entregado) {
         this.entregado = entregado;
     }
 

@@ -61,25 +61,29 @@ public class ServicioController {
     
     @PostMapping(path="/GetVentasPorPersona")
     @ResponseBody
-    public List<Servicio> GetVentasPorPersona(@RequestBody Map<String,String> allParamss)
+    public List<ServicioProducto> GetVentasPorPersona(@RequestBody Map<String,String> allParamss)
     {
         System.out.println("GetVentasPorPersona()<-" + allParamss.size() + "-" +  allParamss.values());
-        System.out.println("GetVentasPorPersona()->");
+        
         //Should be replaced to get ID from data base
         int idVentas = 2;
-        return servicioRepository.findByTipoServicioIdTipoServicio(idVentas);
-    }
-    
-    @PostMapping(path="/GetVentasDetalle")
-    @ResponseBody
-    public ServicioProducto GetVentasDetalle(@RequestBody String allParamss)
-    {
-        System.out.println("GetVentasDetalle()");
         
-        System.out.println("Input params : " + allParamss);
+        List<ServicioProducto> result = servicioProductoRepository.findByServicioTipoServicioIdTipoServicio(idVentas);
+        System.out.println("Result list size: " + result.size());
         
-        ServicioProducto result = servicioProductoRepository.findByIdServicioProductoSeccion(Integer.parseInt(allParamss)).iterator().next();
-        //Should be replaced to get ID from data base
         return result;
     }
+    
+    @PostMapping(path="/GetVentasDetail")
+    @ResponseBody
+    public List<ServicioProducto> GetVentasDetail(@RequestBody Map<String,String> allParamss)
+    {
+        System.out.println("GetVentasDetail()" + allParamss);
+        
+        List<ServicioProducto> result = servicioProductoRepository.findByIdServicioProductoSeccion(Integer.parseInt(allParamss.get("idServiceSelected")));
+        System.out.println("Result list size: " + result.size());
+        
+        return result;
+    }
+    
 }

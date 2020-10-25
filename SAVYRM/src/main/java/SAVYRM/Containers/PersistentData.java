@@ -12,9 +12,9 @@ package SAVYRM.Containers;
 public class PersistentData {
     
     // Venta id guardado en la base de datos
-    public static final int VENTA_IDSERVICIO = 1;
+    public static final int VENTA_IDSERVICIO = 2;
     // Asesoria id guardado en la base de datos
-    public static final int ASESORIA_IDSERVICIO = 2;
+    public static final int ASESORIA_IDSERVICIO = 1;
     // Vigente precio
     public static final int VIGENTE_PRECIO = 1;
     

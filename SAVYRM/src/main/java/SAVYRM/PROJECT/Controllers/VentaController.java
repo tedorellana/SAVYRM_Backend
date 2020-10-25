@@ -82,7 +82,6 @@ public class VentaController {
         venta.setHoraFinServicio(DateTimeUtilities.GetCurrentDateTime());
         venta.setPersonaEmpleado(cliente);
         venta.setPersonaAtendida(empleado);
-        venta.setTipoServicio(tipoServicio); 
         venta.setTipoServicio(tipoServicio);
         
         // Guarda el servicio
