@@ -19,6 +19,8 @@ public class ServicioProducto {
     private Integer idServicioProductoSeccion;
     private Double costoTotal;
     private Double cantidadServicioProducto;
+    private boolean entregado;
+    private String fechaEntrega;
     
     @ManyToOne
     @JoinColumn(name = "fk_idProductoSeccion")
@@ -70,6 +72,19 @@ public class ServicioProducto {
         this.servicio = servicio;
     }
 
-    
-    
+    public boolean isEntregado() {
+        return entregado;
+    }
+
+    public void setEntregado(boolean entregado) {
+        this.entregado = entregado;
+    }
+
+    public String getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(String fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
 }

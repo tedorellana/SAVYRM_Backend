@@ -1,7 +1,9 @@
 package SAVYRM.PROJECT.Controllers;
 
 import SAVYRM.PROJECT.Entities.Servicio;
+import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Entities.Usuario;
+import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
 import SAVYRM.PROJECT.Respositories.ServicioRepository;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ServicioController {
     @Autowired
     private ServicioRepository servicioRepository;
+    
+    @Autowired
+    private ServicioProductoRepository servicioProductoRepository;
     
     @GetMapping(path="/GetServicio")
     public @ResponseBody Iterable<Servicio> GetAllServicio()
@@ -63,5 +68,18 @@ public class ServicioController {
         //Should be replaced to get ID from data base
         int idVentas = 2;
         return servicioRepository.findByTipoServicioIdTipoServicio(idVentas);
+    }
+    
+    @PostMapping(path="/GetVentasDetalle")
+    @ResponseBody
+    public ServicioProducto GetVentasDetalle(@RequestBody String allParamss)
+    {
+        System.out.println("GetVentasDetalle()");
+        
+        System.out.println("Input params : " + allParamss);
+        
+        ServicioProducto result = servicioProductoRepository.findByIdServicioProductoSeccion(Integer.parseInt(allParamss)).iterator().next();
+        //Should be replaced to get ID from data base
+        return result;
     }
 }
