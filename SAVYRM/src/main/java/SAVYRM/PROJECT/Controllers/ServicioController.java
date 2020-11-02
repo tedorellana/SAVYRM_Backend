@@ -61,14 +61,14 @@ public class ServicioController {
     
     @PostMapping(path="/GetVentasPorPersona")
     @ResponseBody
-    public List<ServicioProducto> GetVentasPorPersona(@RequestBody Map<String,String> allParamss)
+    public List<Servicio> GetVentasPorPersona(@RequestBody Map<String,String> allParamss)
     {
         System.out.println("GetVentasPorPersona()<-" + allParamss.size() + "-" +  allParamss.values());
         
         //Should be replaced to get ID from data base
         int idVentas = 2;
         
-        List<ServicioProducto> result = servicioProductoRepository.findByServicioTipoServicioIdTipoServicio(idVentas);
+        List<Servicio> result = servicioRepository.findByTipoServicioIdTipoServicio(idVentas);
         System.out.println("Result list size: " + result.size());
         
         return result;
@@ -80,7 +80,7 @@ public class ServicioController {
     {
         System.out.println("GetVentasDetail()" + allParamss);
         
-        List<ServicioProducto> result = servicioProductoRepository.findByIdServicioProductoSeccion(Integer.parseInt(allParamss.get("idServiceSelected")));
+        List<ServicioProducto> result = servicioProductoRepository.findByServicioIdServicio(Integer.parseInt(allParamss.get("idServiceSelected")));
         System.out.println("Result list size: " + result.size());
         
         return result;

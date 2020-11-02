@@ -12,4 +12,5 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
     
     List<ServicioProducto> findByIdServicioProductoSeccion(Integer idServicioProductoSeccion);
     
+    List<ServicioProducto> findByServicioIdServicio(Integer idServicioProductoSeccion);
 }

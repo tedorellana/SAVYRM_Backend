@@ -16,6 +16,9 @@ public class CarritoDeCompra {
     int idProductoSeccion;
     String unidadMedida;
     double cantidad;
+    Boolean entregado;
+    double precioTotalProducto;
+    String fechaEntrega;
 
     public int getIdProducto() {
         return idProducto;
@@ -64,6 +67,28 @@ public class CarritoDeCompra {
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
-    
-    
+
+    public Boolean getEntregado() {
+        return entregado;
+    }
+
+    public void setEntregado(Boolean entregado) {
+        this.entregado = entregado;
+    }
+
+    public double getPrecioTotalProducto() {
+        return precioTotalProducto;
+    }
+
+    public void setPrecioTotalProducto(double precioTotalProducto) {
+        this.precioTotalProducto = precioTotalProducto;
+    }
+
+    public String getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(String fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
 }

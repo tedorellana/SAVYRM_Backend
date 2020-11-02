@@ -104,7 +104,10 @@ public class VentaController {
             // Establece servicioProducto
             ServicioProducto servicioProducto = new ServicioProducto();
             servicioProducto.setCantidadServicioProducto(prod.getCantidad());
-            servicioProducto.setCostoTotal(VentaUtilities.CalculatePrice(prod.getCantidad(), 0)); // TODO: debe ser calculado y no tomado por la vista
+            servicioProducto.setCostoTotal(VentaUtilities.CalculatePrice(prod.getCantidad(), prod.getPrecioTotalProducto())); // TODO: debe ser calculado y no tomado por la vista
+            servicioProducto.setFechaEntrega(prod.getFechaEntrega());
+            System.out.println("prod.getEntregado()-> " + prod.getEntregado());
+            servicioProducto.setEntregado(prod.getEntregado());
             servicioProducto.setServicio(venta);
             servicioProducto.setProductoSeccion(productoSeccion);
             
