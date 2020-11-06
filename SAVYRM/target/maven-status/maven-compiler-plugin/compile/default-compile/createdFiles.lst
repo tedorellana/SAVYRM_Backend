@@ -28,11 +28,13 @@ SAVYRM\PROJECT\Respositories\PrecioRepository.class
 SAVYRM\PROJECT\Entities\Seccion.class
 SAVYRM\PROJECT\Respositories\ProductoFormulaRepository.class
 SAVYRM\PROJECT\Entities\TipoUsuario.class
+SAVYRM\PROJECT\Controllers\ReportController.class
 SAVYRM\PROJECT\Controllers\ServicioController.class
 SAVYRM\PROJECT\Respositories\UnidadMedidaRepository.class
 SAVYRM\PROJECT\Controllers\ProductoController.class
 SAVYRM\PROJECT\Respositories\ServicioProductoRepository.class
 SAVYRM\Containers\CarritoDeCompra.class
+SAVYRM\Containers\SalesReport.class
 SAVYRM\PROJECT\Entities\Preparacion.class
 SAVYRM\PROJECT\Respositories\LogRepository.class
 SAVYRM\PROJECT\Controllers\LogController.class
