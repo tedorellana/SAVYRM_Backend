@@ -14,7 +14,7 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
     
     // find all sales summatory grouped by product id
     @Query(
-            value = "SELECT p.nombreProducto, SUM(sp.cantidadServicioProducto) as cantidadTotal FROM savyrm.servicioproducto sp \n" +
+            value = "SELECT p.nombreProducto as label, SUM(sp.cantidadServicioProducto) as y FROM savyrm.servicioproducto sp \n" +
                 "inner join savyrm.servicio as s on s.idServicio = sp.fk_idServicio\n" +
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
@@ -23,6 +23,18 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "GROUP BY p.idProducto", 
             nativeQuery = true)
     List<SalesReport> findAllSales(Integer idTipoServicio);
+    
+    // find revenue per date
+    @Query(
+            value = "SELECT CONCAT(YEAR(s.horaInicioServicio), \"-\" , MONTH(s.horaInicioServicio), \"-\", DAY(s.horaInicioServicio)) as label, SUM(sp.costoTotal) as y FROM savyrm.servicioproducto sp\n" +
+                "inner join savyrm.servicio as s on s.idServicio = sp.fk_idServicio\n" +
+                "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
+                "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
+                "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
+                "where ts.idTipoServicio = '2'\n" +
+                "GROUP BY YEAR(s.horaInicioServicio), MONTH(s.horaInicioServicio), DAY(s.horaInicioServicio)", 
+            nativeQuery = true)
+    List<SalesReport> findRevenuePerDay(Integer idTipoServicio);
     
     List<ServicioProducto> findByIdServicioProductoSeccion(Integer idServicioProductoSeccion);
     
