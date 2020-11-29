@@ -40,4 +40,19 @@ public class ReportController {
         System.out.println("GetRevenuePerDay()");
         return servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
     }
+    
+    @GetMapping(path="/GetRevenuePerProduct")
+    public @ResponseBody Iterable<SalesReport> GetRevenuePerProduct()
+    {
+        System.out.println("GetRevenuePerProduct()");
+        return servicioProductoRepository.findRevenuePerProduct(PersistentData.VENTA_IDSERVICIO);
+    }
+    
+    @GetMapping(path="/GetSalesAtendedPerEmployee")
+    public @ResponseBody Iterable<SalesReport> GetSalesAtendedPerEmployee()
+    {
+        System.out.println("GetSalesAtendedPerClient()");
+        return servicioProductoRepository.findSalesAtendedPerEmployeee(PersistentData.VENTA_IDSERVICIO);
+    }
+    
 }

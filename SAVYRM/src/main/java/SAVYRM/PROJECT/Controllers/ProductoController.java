@@ -154,9 +154,6 @@ public class ProductoController {
             System.out.println("AgregarProductoAFormula()<-" + result);
         }
         return result;
-        //return productoRepository.findAllByEstadoProductoDistinctTipoProductoIdTipoProducto(estadoProducto, idTipoProductoFINAL);
-        //return productoRepository.findByEstadoProductoAndTipoProductoIdTipoProductoNot(estadoProducto, idTipoProductoFINAL);
-        
     }
     
     @GetMapping(path="/GetAllProductosParaVenta")

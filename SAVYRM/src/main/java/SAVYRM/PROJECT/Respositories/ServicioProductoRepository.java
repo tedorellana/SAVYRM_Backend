@@ -36,6 +36,31 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
             nativeQuery = true)
     List<SalesReport> findRevenuePerDay(Integer idTipoServicio);
     
+    // find revenue per product
+    @Query(
+            value = "SELECT p.nombreProducto as label, SUM(sp.costoTotal) as y FROM savyrm.servicioproducto sp \n" +
+                "inner join savyrm.servicio as s on s.idServicio = sp.fk_idServicio\n" +
+                "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
+                "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
+                "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
+                "where ts.idTipoServicio = '2'\n" +
+                "GROUP BY p.idProducto;", 
+            nativeQuery = true)
+    List<SalesReport> findRevenuePerProduct(Integer idTipoServicio);    
+    
+    // find the sales atended per employee
+    @Query(
+            value = "SELECT CONCAT(pe.apellidoPaternoPersona, \" \", pe.apellidoMaternoPersona, \" \", pe.nombrePersona) as label, Count(s.idServicio) as y FROM savyrm.servicioproducto sp \n" +
+                "inner join savyrm.servicio as s on s.idServicio = sp.fk_idServicio\n" +
+                "inner join savyrm.persona as pe on pe.idPersona = s.idPersonaEmpleado\n" +
+                "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
+                "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
+                "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
+                "where ts.idTipoServicio = '2'\n" +
+                "GROUP BY s.idPersonaEmpleado;", 
+            nativeQuery = true)
+    List<SalesReport> findSalesAtendedPerEmployeee(Integer idTipoServicio);
+    
     List<ServicioProducto> findByIdServicioProductoSeccion(Integer idServicioProductoSeccion);
     
     List<ServicioProducto> findByServicioIdServicio(Integer idServicioProductoSeccion);
