@@ -1,5 +1,6 @@
 package SAVYRM.PROJECT.Controllers;
 
+import SAVYRM.Containers.ProductoBase;
 import SAVYRM.Containers.ProductoSeccionPrecio;
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Producto;
@@ -63,6 +64,24 @@ public class ProductoController {
         System.out.println("Params:" + allParams.values());
         System.out.println("GetAllProductoWhereEstadoIsActivado()<-");
         return productoRepository.findAllByEstadoProducto(Integer.parseInt(allParams.get("activado")));
+    }
+    
+    // Get products that has elaboration configured and stuts is "activated"
+    @PostMapping(path="/GetAllProductoWithElaboration")
+    @ResponseBody
+    public Iterable<ProductoBase> GetAllProductoWithElaboration(@RequestBody String Status)
+    {   
+        System.out.println("GetAllProductoWithElaboration(): " + Status);
+        return productoRepository.findProductsWithElaboration();
+    }
+    
+    // Get products that has elaboration configured and stuts is "activated"
+    @PostMapping(path="/GetElaborationById")
+    @ResponseBody
+    public Iterable<Producto> GetElaborationById(@RequestBody String idProducto)
+    {   
+        System.out.println("GetElaborationById(): " + idProducto);
+        return productoRepository.findAllByIdProducto(Integer.parseInt(idProducto));
     }
     
     @PostMapping(path="/SaveProducto")

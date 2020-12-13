@@ -1,14 +1,7 @@
 package SAVYRM.Containers;
 
-public interface ProductoSeccionPrecio {
+public interface ProductoBase {
+    Integer getIdProducto();
     String getNombreProducto();
     String getCodigoProducto();
-    Integer getIdProductoSeccion();
-    Double getCantidadProductoSeccion();
-    String getFechaIngreso();
-    Integer getIdPrecio();
-    Double getUnitarioPrecio();
-    String getVigentePrecio();
-    String getAbreviacion();
-    
 }
