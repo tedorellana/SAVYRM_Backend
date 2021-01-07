@@ -20,6 +20,7 @@ SAVYRM\PROJECT\Controllers\FormulaController.class
 SAVYRM\PROJECT\Utilities\VentaUtilities.class
 SAVYRM\PROJECT\Respositories\TipoUsuarioRepository.class
 SAVYRM\PROJECT\Entities\Lote.class
+SAVYRM\Containers\DataForComparedGraphic.class
 SAVYRM\PROJECT\Entities\TipoProducto.class
 SAVYRM\PROJECT\Controllers\PersonaController.class
 SAVYRM\Containers\ProductoSeccionPrecio.class

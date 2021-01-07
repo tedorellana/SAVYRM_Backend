@@ -1,5 +1,6 @@
 package SAVYRM.PROJECT.Controllers;
 
+import SAVYRM.Containers.DataForComparedGraphic;
 import SAVYRM.Containers.PersistentData;
 import SAVYRM.Containers.SalesReport;
 import SAVYRM.PROJECT.Entities.ServicioProducto;
@@ -55,4 +56,18 @@ public class ReportController {
         return servicioProductoRepository.findSalesAtendedPerEmployeee(PersistentData.VENTA_IDSERVICIO);
     }
     
+    @GetMapping(path="/SalesStatusCompared")
+    public @ResponseBody DataForComparedGraphic SalesStatusCompared()
+    {
+        System.out.println("set sales per day()");
+        DataForComparedGraphic result = new DataForComparedGraphic();
+        
+        result.setBaseLine(servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO));
+        
+        System.out.println("set base sales");
+        servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
+        result.setCurrentLine(servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO));
+        
+        return result;
+    }
 }
