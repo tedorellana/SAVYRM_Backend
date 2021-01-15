@@ -3,7 +3,6 @@ package SAVYRM.PROJECT.Controllers;
 import SAVYRM.Containers.CarritoDeCompraWrapper;
 import SAVYRM.Containers.CarritoDeCompra;
 import SAVYRM.Containers.PersistentData;
-import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.Persona;
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
 import SAVYRM.PROJECT.Entities.Servicio;
@@ -11,19 +10,10 @@ import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Entities.TipoServicio;
 import SAVYRM.PROJECT.Respositories.PrecioRepository;
 import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
-import SAVYRM.PROJECT.Respositories.SeccionRepository;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
 import SAVYRM.PROJECT.Respositories.ServicioRepository;
 import SAVYRM.PROJECT.Utilities.DateTimeUtilities;
 import SAVYRM.PROJECT.Utilities.VentaUtilities;
-import com.google.gson.Gson;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -115,5 +105,20 @@ public class VentaController {
             // Guarda la producto
             servicioProductoRepository.save(servicioProducto);
         }
+    }
+    
+    @PostMapping(path="/MarkProductAsDelivered")
+    @ResponseBody
+    public void MarkProductAsDelivered(@RequestBody ServicioProducto saleSelected)
+    {   
+        System.out.println("MarkProductAsDelivered()<-");
+        
+        if (saleSelected == null) {
+            System.out.println("saleSelected is missing");
+            return;
+        }
+        
+        saleSelected.setEntregado(true);
+        servicioProductoRepository.save(saleSelected);
     }
 }
