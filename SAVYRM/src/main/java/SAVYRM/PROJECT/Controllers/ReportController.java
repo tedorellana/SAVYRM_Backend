@@ -1,10 +1,14 @@
 package SAVYRM.PROJECT.Controllers;
 
 import SAVYRM.Containers.DataForComparedGraphic;
+import SAVYRM.Containers.GraphicNode;
 import SAVYRM.Containers.PersistentData;
-import SAVYRM.Containers.SalesReport;
+import SAVYRM.Containers.LabelAndNodeReport;
 import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @Controller
 @RequestMapping(path="/Report") 
-public class ReportController {
+public class ReportController { 
     @Autowired
     private ServicioProductoRepository servicioProductoRepository;
     
@@ -29,44 +33,114 @@ public class ReportController {
     }
     
     @GetMapping(path="/GetAllSales")
-    public @ResponseBody Iterable<SalesReport> GetAllSales()
+    public @ResponseBody Iterable<LabelAndNodeReport> GetAllSales()
     {
         System.out.println("GetAllSales()");
         return servicioProductoRepository.findAllSales(PersistentData.VENTA_IDSERVICIO);
     }
     
     @GetMapping(path="/GetRevenuePerDay")
-    public @ResponseBody Iterable<SalesReport> GetRevenuePerDay()
+    public @ResponseBody Iterable<LabelAndNodeReport> GetRevenuePerDay()
     {
         System.out.println("GetRevenuePerDay()");
         return servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
     }
     
     @GetMapping(path="/GetRevenuePerProduct")
-    public @ResponseBody Iterable<SalesReport> GetRevenuePerProduct()
+    public @ResponseBody Iterable<LabelAndNodeReport> GetRevenuePerProduct()
     {
         System.out.println("GetRevenuePerProduct()");
         return servicioProductoRepository.findRevenuePerProduct(PersistentData.VENTA_IDSERVICIO);
     }
     
     @GetMapping(path="/GetSalesAtendedPerEmployee")
-    public @ResponseBody Iterable<SalesReport> GetSalesAtendedPerEmployee()
+    public @ResponseBody Iterable<LabelAndNodeReport> GetSalesAtendedPerEmployee()
     {
         System.out.println("GetSalesAtendedPerClient()");
         return servicioProductoRepository.findSalesAtendedPerEmployeee(PersistentData.VENTA_IDSERVICIO);
     }
     
+    // Get the revenue per day compared with the average
+    @GetMapping(path="/RevenueStatusCompared")
+    public @ResponseBody DataForComparedGraphic RevenueStatusCompared()
+    {
+        System.out.println("RevenueStatusCompared()");
+        DataForComparedGraphic result = new DataForComparedGraphic();
+        
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
+        result.setCurrentLine(graphicCurrentNodes);
+        
+        ArrayList<GraphicNode> graphicAverageNodes = new ArrayList<>();
+        
+        if (graphicCurrentNodes.isEmpty()) {
+            System.out.println("baseLine for graphics cannot be empty");
+            return null;
+        }
+        
+        // Calculate average
+        double summatory = 0.0;
+        double average = 0.0;
+        
+        for (LabelAndNodeReport sr : graphicCurrentNodes){
+            summatory += sr.getY();
+        }
+        average = summatory / graphicCurrentNodes.size();
+        System.out.println("average -> " + average);
+        
+        // Prepare base line with the average value
+        for (LabelAndNodeReport sr : graphicCurrentNodes){
+            System.out.println("sr label -> " + sr.getLabel() + " Y ->" + sr.getY());
+            GraphicNode gn = new GraphicNode();
+            gn.setLabel(sr.getLabel());
+            gn.setY(average);
+            graphicAverageNodes.add(gn);
+        }
+        System.out.println("graphicAverageNodes size: " + graphicAverageNodes.size());
+        
+        // Setting the average to print in the graphic an horizontal line to compare
+        result.setBaseLine(graphicAverageNodes);
+        
+        return result;
+    }
+    
     @GetMapping(path="/SalesStatusCompared")
     public @ResponseBody DataForComparedGraphic SalesStatusCompared()
     {
-        System.out.println("set sales per day()");
+        System.out.println("SalesStatusCompared()");
         DataForComparedGraphic result = new DataForComparedGraphic();
         
-        result.setBaseLine(servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO));
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findSalesAveragePerDay(PersistentData.VENTA_IDSERVICIO);
+        result.setCurrentLine(graphicCurrentNodes);
         
-        System.out.println("set base sales");
-        servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
-        result.setCurrentLine(servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO));
+        ArrayList<GraphicNode> graphicAverageNodes = new ArrayList<>();
+        
+        if (graphicCurrentNodes.isEmpty()) {
+            System.out.println("baseLine for graphics cannot be empty");
+            return null;
+        }
+        
+        // Calculate average
+        double summatory = 0.0;
+        double average = 0.0;
+        
+        for (LabelAndNodeReport sr : graphicCurrentNodes){
+            summatory += sr.getY();
+        }
+        average = summatory / graphicCurrentNodes.size();
+        System.out.println("average -> " + average);
+        
+        // Prepare base line with the average value
+        for (LabelAndNodeReport sr : graphicCurrentNodes){
+            System.out.println("sr label -> " + sr.getLabel() + " Y ->" + sr.getY());
+            GraphicNode gn = new GraphicNode();
+            gn.setLabel(sr.getLabel());
+            gn.setY(average);
+            graphicAverageNodes.add(gn);
+        }
+        System.out.println("graphicAverageNodes size: " + graphicAverageNodes.size());
+        
+        // Setting the average to print in the graphic an horizontal line to compare
+        result.setBaseLine(graphicAverageNodes);
         
         return result;
     }

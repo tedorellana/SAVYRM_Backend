@@ -3,23 +3,23 @@ package SAVYRM.Containers;
 import java.util.List;
 
 public class DataForComparedGraphic {
-    List<SalesReport> BaseLine;
+    List<GraphicNode> BaseLine;
     
-    List<SalesReport> CurrentLine;
+    List<LabelAndNodeReport> CurrentLine;
 
-    public List<SalesReport> getBaseLine() {
+    public List<GraphicNode> getBaseLine() {
         return BaseLine;
     }
 
-    public void setBaseLine(List<SalesReport> BaseLine) {
+    public void setBaseLine(List<GraphicNode> BaseLine) {
         this.BaseLine = BaseLine;
     }
 
-    public List<SalesReport> getCurrentLine() {
+    public List<LabelAndNodeReport> getCurrentLine() {
         return CurrentLine;
     }
 
-    public void setCurrentLine(List<SalesReport> CurrentLine) {
+    public void setCurrentLine(List<LabelAndNodeReport> CurrentLine) {
         this.CurrentLine = CurrentLine;
     }
 

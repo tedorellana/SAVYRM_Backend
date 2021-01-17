@@ -1,6 +1,6 @@
 package SAVYRM.PROJECT.Respositories;
 
-import SAVYRM.Containers.SalesReport;
+import SAVYRM.Containers.LabelAndNodeReport;
 import SAVYRM.PROJECT.Entities.ServicioProducto;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +22,7 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "where ts.idTipoServicio = '2'\n" +
                 "GROUP BY p.idProducto", 
             nativeQuery = true)
-    List<SalesReport> findAllSales(Integer idTipoServicio);
+    List<LabelAndNodeReport> findAllSales(Integer idTipoServicio);
     
     // find revenue per date
     @Query(
@@ -34,7 +34,19 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "where ts.idTipoServicio = '2'\n" +
                 "GROUP BY YEAR(s.horaInicioServicio), MONTH(s.horaInicioServicio), DAY(s.horaInicioServicio)", 
             nativeQuery = true)
-    List<SalesReport> findRevenuePerDay(Integer idTipoServicio);
+    List<LabelAndNodeReport> findRevenuePerDay(Integer idTipoServicio);
+    
+    // find the average of sales per day
+    @Query(
+            value = "SELECT CONCAT(YEAR(s.horaInicioServicio), \"-\" , MONTH(s.horaInicioServicio), \"-\", DAY(s.horaInicioServicio)) as label, SUM(sp.cantidadServicioProducto) as y FROM savyrm.servicioproducto sp\n" +
+                "inner join savyrm.servicio as s on s.idServicio = sp.fk_idServicio\n" +
+                "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
+                "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
+                "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
+                "where ts.idTipoServicio = '2'\n" +
+                "GROUP BY YEAR(s.horaInicioServicio), MONTH(s.horaInicioServicio), DAY(s.horaInicioServicio)", 
+            nativeQuery = true)
+    List<LabelAndNodeReport> findSalesAveragePerDay(Integer idTipoServicio);
     
     // find revenue per product
     @Query(
@@ -46,7 +58,7 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "where ts.idTipoServicio = '2'\n" +
                 "GROUP BY p.idProducto;", 
             nativeQuery = true)
-    List<SalesReport> findRevenuePerProduct(Integer idTipoServicio);    
+    List<LabelAndNodeReport> findRevenuePerProduct(Integer idTipoServicio);    
     
     // find the sales atended per employee
     @Query(
@@ -59,7 +71,7 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "where ts.idTipoServicio = '2'\n" +
                 "GROUP BY s.idPersonaEmpleado;", 
             nativeQuery = true)
-    List<SalesReport> findSalesAtendedPerEmployeee(Integer idTipoServicio);
+    List<LabelAndNodeReport> findSalesAtendedPerEmployeee(Integer idTipoServicio);
     
     List<ServicioProducto> findByIdServicioProductoSeccion(Integer idServicioProductoSeccion);
     
