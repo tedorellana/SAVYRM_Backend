@@ -1,5 +1,6 @@
 package SAVYRM.PROJECT.Controllers;
 
+import SAVYRM.Containers.DashboardStatus;
 import SAVYRM.Containers.DataForComparedGraphic;
 import SAVYRM.Containers.GraphicNode;
 import SAVYRM.Containers.PersistentData;
@@ -141,6 +142,92 @@ public class ReportController {
         
         // Setting the average to print in the graphic an horizontal line to compare
         result.setBaseLine(graphicAverageNodes);
+        
+        return result;
+    }
+    
+    // Get the sale status compared in 2 node: current and expected
+    @GetMapping(path="/SimpleSalesStatusCompared")
+    public @ResponseBody DashboardStatus SimpleSalesStatusCompared()
+    {
+        System.out.println("SimpleSalesStatusCompared()");
+        DashboardStatus result = new DashboardStatus();
+        
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findSalesAveragePerDay(PersistentData.VENTA_IDSERVICIO);
+                
+        if (graphicCurrentNodes.isEmpty()) {
+            System.out.println("baseLine for graphics cannot be empty");
+            return null;
+        }
+        
+        // Calculate average
+        double summatory = 0.0;
+        double average = 0.0;
+        
+        for (LabelAndNodeReport sr : graphicCurrentNodes){
+            summatory += sr.getY();
+        }
+        average = summatory / graphicCurrentNodes.size();
+        System.out.println("average -> " + average);
+        
+        // Get the the today's node
+        LabelAndNodeReport sr = graphicCurrentNodes.get(graphicCurrentNodes.size() - 1);
+        System.out.println("sr label -> " + sr.getLabel() + " Y ->" + sr.getY());
+        GraphicNode gn = new GraphicNode();
+        gn.setLabel(sr.getLabel());
+        gn.setY(sr.getY());
+        result.setCurrent(gn);
+        
+        // Prepare base line with the average value
+        sr = graphicCurrentNodes.get(0);
+        System.out.println("sr label -> " + sr.getLabel() + " Y ->" + sr.getY());
+        gn = new GraphicNode();
+        gn.setLabel(sr.getLabel());
+        gn.setY(average);
+        result.setExpected(gn);      
+        
+        return result;
+    }
+    
+    // Get the sale status compared in 2 node: current and expected
+    @GetMapping(path="/SimpleRevenueStatusCompared")
+    public @ResponseBody DashboardStatus SimpleRevenueStatusCompared()
+    {
+        System.out.println("SimpleRevenueStatusCompared()");
+        DashboardStatus result = new DashboardStatus();
+        
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
+                
+        if (graphicCurrentNodes.isEmpty()) {
+            System.out.println("baseLine for graphics cannot be empty");
+            return null;
+        }
+        
+        // Calculate average
+        double summatory = 0.0;
+        double average = 0.0;
+        
+        for (LabelAndNodeReport sr : graphicCurrentNodes){
+            summatory += sr.getY();
+        }
+        average = summatory / graphicCurrentNodes.size();
+        System.out.println("average -> " + average);
+        
+        // Get the the today's node
+        LabelAndNodeReport sr = graphicCurrentNodes.get(graphicCurrentNodes.size() - 1);
+        System.out.println("sr label -> " + sr.getLabel() + " Y ->" + sr.getY());
+        GraphicNode gn = new GraphicNode();
+        gn.setLabel(sr.getLabel());
+        gn.setY(sr.getY()); 
+        result.setCurrent(gn);
+        
+        // Prepare base line with the average value
+        sr = graphicCurrentNodes.get(0);
+        System.out.println("sr label -> " + sr.getLabel() + " Y ->" + sr.getY());
+        gn = new GraphicNode();
+        gn.setLabel(sr.getLabel());
+        gn.setY(average);
+        result.setExpected(gn);      
         
         return result;
     }

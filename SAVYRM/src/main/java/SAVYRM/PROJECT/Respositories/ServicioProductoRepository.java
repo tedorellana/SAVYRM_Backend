@@ -38,7 +38,7 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
     
     // find the average of sales per day
     @Query(
-            value = "SELECT CONCAT(YEAR(s.horaInicioServicio), \"-\" , MONTH(s.horaInicioServicio), \"-\", DAY(s.horaInicioServicio)) as label, SUM(sp.cantidadServicioProducto) as y FROM savyrm.servicioproducto sp\n" +
+            value = "SELECT CONCAT(YEAR(s.horaInicioServicio), \"-\" , MONTH(s.horaInicioServicio), \"-\", DAY(s.horaInicioServicio)) as label, COUNT(s.idServicio) as y FROM savyrm.servicioproducto sp\n" +
                 "inner join savyrm.servicio as s on s.idServicio = sp.fk_idServicio\n" +
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
