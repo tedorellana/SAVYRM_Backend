@@ -20,7 +20,7 @@ public class Lote {
     private String codigoLote;
     private Double costoLote;
     private Double cantidadUnidadesLote;
-    private String fechaCaducacionLote;
+    private String fechaCaducidadLote;
     
     @JsonIgnore
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL)
@@ -35,7 +35,7 @@ public class Lote {
         this.codigoLote = codigoLote;
         this.costoLote = costoLote;
         this.cantidadUnidadesLote = cantidadUnidadesLote;
-        this.fechaCaducacionLote = fechaCaducacionLote;
+        this.fechaCaducidadLote = fechaCaducacionLote;
         this.productoSeccion = Stream.of(productoSeccion).collect(Collectors.toSet());
         this.productoSeccion.forEach(x -> x.setLote(this));
     }
@@ -73,11 +73,11 @@ public class Lote {
     }
 
     public String getFechaCaducacionLote() {
-        return fechaCaducacionLote;
+        return fechaCaducidadLote;
     }
 
     public void setFechaCaducacionLote(String fechaCaducacionLote) {
-        this.fechaCaducacionLote = fechaCaducacionLote;
+        this.fechaCaducidadLote = fechaCaducacionLote;
     }
 
     public Set<ProductoSeccion> getProductoSeccion() {

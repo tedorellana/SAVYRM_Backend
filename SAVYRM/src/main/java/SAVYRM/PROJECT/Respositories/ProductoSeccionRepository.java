@@ -8,7 +8,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface ProductoSeccionRepository extends PagingAndSortingRepository<ProductoSeccion, Integer>{
     
     Iterable<ProductoSeccion> findAllBySeccionIdSeccionIn(Iterable<Integer> idSeccion);
-
+    
+    Iterable<ProductoSeccion> findByOrderByLoteFechaCaducidadLoteDesc();
+    
+    Iterable<ProductoSeccion> findByOrderByLoteFechaCaducidadLoteAsc();
+//LoteFechaCaducidadLote
     @Query(
             value = "SELECT p.nombreProducto, ps.idProductoSeccion, ps.cantidadProductoSeccion, " +
                 "ps.fechaIngreso, pr.idPrecio, pr.unitarioPrecio, pr.vigentePrecio, p.codigoProducto, " + 

@@ -1,11 +1,11 @@
 package SAVYRM.PROJECT.Controllers;
 
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
-import SAVYRM.PROJECT.Entities.Servicio;
 import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,5 +38,12 @@ public class ProductoSeccionController {
         System.out.println("GetAllInventarioBySeccion()->");
         //Should be replaced to get ID from data base
         return productoSeccionRepository.findAllBySeccionIdSeccionIn((Iterable<Integer>)allParamss.get("idSecciones"));
+    }
+    
+    @GetMapping(path="/GetProductosOrderByCaducidad")
+    public @ResponseBody Iterable<ProductoSeccion> GetProductosOrderByCaducidad()
+    {
+        System.out.println("GetProductosOrderByCaducidad()");
+        return productoSeccionRepository.findByOrderByLoteFechaCaducidadLoteAsc();
     }
 }
