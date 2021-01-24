@@ -19,6 +19,7 @@ public class CarritoDeCompra {
     Boolean entregado;
     double precioTotalProducto;
     String fechaEntrega;
+    String fechaEntregaPrevista;
 
     public int getIdProducto() {
         return idProducto;
@@ -90,5 +91,13 @@ public class CarritoDeCompra {
 
     public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
+    }
+
+    public String getFechaEntregaPrevista() {
+        return fechaEntregaPrevista;
+    }
+
+    public void setFechaEntregaPrevista(String fechaEntregaPrevista) {
+        this.fechaEntregaPrevista = fechaEntregaPrevista;
     }
 }

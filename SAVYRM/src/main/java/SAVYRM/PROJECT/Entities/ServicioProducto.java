@@ -21,6 +21,7 @@ public class ServicioProducto {
     private Double cantidadServicioProducto;
     private Boolean entregado;
     private String fechaEntrega;
+    private String fechaEntregaPrevista;
     
     @ManyToOne
     @JoinColumn(name = "fk_idProductoSeccion")
@@ -86,5 +87,13 @@ public class ServicioProducto {
 
     public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
+    }
+
+    public String getFechaEntregaPrevista() {
+        return fechaEntregaPrevista;
+    }
+
+    public void setFechaEntregaPrevista(String fechaEntregaPrevista) {
+        this.fechaEntregaPrevista = fechaEntregaPrevista;
     }
 }
