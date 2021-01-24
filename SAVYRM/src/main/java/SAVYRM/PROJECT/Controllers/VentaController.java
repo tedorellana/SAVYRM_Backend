@@ -63,15 +63,15 @@ public class VentaController {
         // Establece cliente
         System.out.println("Ser Client.");
         Persona cliente = new Persona();
-        cliente.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idEmpleado);
+        cliente.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idCliente);
         
         // Establece la venta 
         System.out.println("set Service.");
         Servicio venta = new Servicio();
         venta.setHoraInicioServicio(carritoDeCompraWrapper.getDetallesServicio().getDateTimeServiceBegin());
         venta.setHoraFinServicio(DateTimeUtilities.GetCurrentDateTime());
-        venta.setPersonaEmpleado(cliente);
-        venta.setPersonaAtendida(empleado);
+        venta.setPersonaEmpleado(empleado);
+        venta.setPersonaAtendida(cliente);
         venta.setTipoServicio(tipoServicio);
         
         // Guarda el servicio
