@@ -1,6 +1,7 @@
 package SAVYRM.Containers;
 
 public interface ProductoSeccionPrecio {
+    String getIdProducto();
     String getNombreProducto();
     String getCodigoProducto();
     Integer getIdProductoSeccion();

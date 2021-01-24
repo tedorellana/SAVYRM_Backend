@@ -14,7 +14,7 @@ public interface ProductoSeccionRepository extends PagingAndSortingRepository<Pr
     Iterable<ProductoSeccion> findByOrderByLoteFechaCaducidadLoteAsc();
 //LoteFechaCaducidadLote
     @Query(
-            value = "SELECT p.nombreProducto, ps.idProductoSeccion, ps.cantidadProductoSeccion, " +
+            value = "SELECT p.idProducto, p.nombreProducto, ps.idProductoSeccion, ps.cantidadProductoSeccion, " +
                 "ps.fechaIngreso, pr.idPrecio, pr.unitarioPrecio, pr.vigentePrecio, p.codigoProducto, " + 
                 "um.abreviacion FROM producto p " +
                 "inner join productoseccion ps on p.idProducto = ps.fk_idProducto " +
