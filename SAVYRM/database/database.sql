@@ -149,6 +149,68 @@ INSERT INTO `lote` VALUES (1,'Lote1',890,850,'2017-06-28 20:30:54.143000'),(2,'L
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ordencompra`
+--
+
+DROP TABLE IF EXISTS `ordencompra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ordencompra` (
+  `idOrdencompra` int NOT NULL AUTO_INCREMENT,
+  `fechaRegistroOrdencompra` datetime NOT NULL,
+  `precioTotalOrdencompra` double NOT NULL,
+  `fk_idPersona` int NOT NULL,
+  PRIMARY KEY (`idOrdencompra`),
+  KEY `FK_Ordencompra_Persona_idx` (`fk_idPersona`),
+  CONSTRAINT `FK_Ordencompra_Persona` FOREIGN KEY (`fk_idPersona`) REFERENCES `persona` (`idPersona`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordencompra`
+--
+
+LOCK TABLES `ordencompra` WRITE;
+/*!40000 ALTER TABLE `ordencompra` DISABLE KEYS */;
+INSERT INTO `ordencompra` VALUES (1,'2021-01-02 22:33:56',100,17);
+/*!40000 ALTER TABLE `ordencompra` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ordencompraproducto`
+--
+
+DROP TABLE IF EXISTS `ordencompraproducto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ordencompraproducto` (
+  `idOrdercompraproducto` int NOT NULL AUTO_INCREMENT,
+  `fechaEntregaPrevistaOrdenCompraProducto` datetime NOT NULL,
+  `fechaEntregaOrdenCompraProducto` datetime DEFAULT NULL,
+  `precioOrdenCompraProducto` double DEFAULT NULL,
+  `cantidadOrdenCompraProducto` double NOT NULL,
+  `cantidadDisponibleOrdenCompraProducto` double DEFAULT '0',
+  `fk_idProducto` int NOT NULL,
+  `fk_idOrdenCompra` int NOT NULL,
+  PRIMARY KEY (`idOrdercompraproducto`),
+  KEY `FK_Ordencompraproducto_Producto_idx` (`fk_idProducto`) /*!80000 INVISIBLE */,
+  KEY `FK_Ordencompraproducto_Ordencompra_idx` (`fk_idOrdenCompra`),
+  CONSTRAINT `FK_Ordencompraproducto_Ordencompra` FOREIGN KEY (`fk_idOrdenCompra`) REFERENCES `ordencompra` (`idOrdencompra`),
+  CONSTRAINT `FK_Ordencompraproducto_Producto` FOREIGN KEY (`fk_idProducto`) REFERENCES `producto` (`idProducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordencompraproducto`
+--
+
+LOCK TABLES `ordencompraproducto` WRITE;
+/*!40000 ALTER TABLE `ordencompraproducto` DISABLE KEYS */;
+INSERT INTO `ordencompraproducto` VALUES (1,'2021-01-02 22:33:56',NULL,100,10,100,9,1);
+/*!40000 ALTER TABLE `ordencompraproducto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `persona`
 --
 
@@ -169,7 +231,7 @@ CREATE TABLE `persona` (
   PRIMARY KEY (`idPersona`),
   KEY `FK_Persona_TipoPersona` (`fk_idTipoPersona`),
   CONSTRAINT `FK_Persona_TipoPersona` FOREIGN KEY (`fk_idTipoPersona`) REFERENCES `tipopersona` (`idTipoPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +240,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Ted','Orellana','Rojas','DNI','71926746','941766670','tedorellana@gmail.com','Prolonfación los puquina 115  - Salamanca de Monterrico',1),(2,'Antony','Villar','Cristobal','DNI','71527712','987261221','antony@gmail.com','Urbanizacón Proceres 116 - Chorrillos',1),(3,'Juan','Rojas','Rojas','DNI','29312212','908899172','juanjuan@hotmail.com','Prolongacion Atenea 432 - Chorillos',1),(4,'Ruby','Arce','Figueroa','DNI','21312312','976255121','figueroaarce@gmail.com','Puquinas 114 - Ate',1),(8,'Thirza','Orellana','Rojas','DNI','71458525','947789514','thirza123@gmail.com','Los Puquinas 220, Ate',1),(9,'Carmen','Rojas','Arce','DNI','24516398','948565321','carmen_123@gmail.com','Los Abetos 223, La Molina',1),(10,'Teodorico','Orellana','Perez','DNI','28459653','947851623','teodorico@gmail.com','Los Rosales 450, Ate',1),(11,'Araceli','Rosales','Prada','DNI','71457845','985445511','araceliprada@gmail.com','Los Prada 222, San Luis',1),(12,'Juana','Rosales','Prada','DNI','71457846','977445674','juana@gmail.com','Los Prada 222, San Luis',1),(13,'Luis','Arce','Arce','DNI','24152635','986534215','luisluis@hotmail.com','Los Quechuas 4500, Los Olivos',1),(14,'Jorge','Aguilar','Prado','RUC','10245451288','941784512','jorgeaguilar@gmail.com','El corregidor 1100, La molina',1),(15,'Joaquin','Aguilar','Arce','DNI','28471544','985245145','jaguilar@hotmail.com','Av Los Rosales 1122, San Luis',1),(16,'Raquel','Garcia','López','RUC','10544122158','988959866','garciaraquel123@gmail.com','Los ingenieros 230, Ate',1);
+INSERT INTO `persona` VALUES (1,'Ted','Orellana','Rojas','DNI','71926746','941766670','tedorellana@gmail.com','Prolonfación los puquina 115  - Salamanca de Monterrico',1),(2,'Antony','Villar','Cristobal','DNI','71527712','987261221','antony@gmail.com','Urbanizacón Proceres 116 - Chorrillos',1),(3,'Juan','Rojas','Rojas','DNI','29312212','908899172','juanjuan@hotmail.com','Prolongacion Atenea 432 - Chorillos',1),(4,'Ruby','Arce','Figueroa','DNI','21312312','976255121','figueroaarce@gmail.com','Puquinas 114 - Ate',1),(8,'Thirza','Orellana','Rojas','DNI','71458525','947789514','thirza123@gmail.com','Los Puquinas 220, Ate',1),(9,'Carmen','Rojas','Arce','DNI','24516398','948565321','carmen_123@gmail.com','Los Abetos 223, La Molina',1),(10,'Teodorico','Orellana','Perez','DNI','28459653','947851623','teodorico@gmail.com','Los Rosales 450, Ate',1),(11,'Araceli','Rosales','Prada','DNI','71457845','985445511','araceliprada@gmail.com','Los Prada 222, San Luis',1),(12,'Juana','Rosales','Prada','DNI','71457846','977445674','juana@gmail.com','Los Prada 222, San Luis',1),(13,'Luis','Arce','Arce','DNI','24152635','986534215','luisluis@hotmail.com','Los Quechuas 4500, Los Olivos',1),(14,'Jorge','Aguilar','Prado','RUC','10245451288','941784512','jorgeaguilar@gmail.com','El corregidor 1100, La molina',1),(15,'Joaquin','Aguilar','Arce','DNI','28471544','985245145','jaguilar@hotmail.com','Av Los Rosales 1122, San Luis',1),(16,'Raquel','Garcia','López','RUC','10544122158','988959866','garciaraquel123@gmail.com','Los ingenieros 230, Ate',1),(17,'Proveedor1',NULL,NULL,'RUC','10224455668','989554512','proveedor1@gmail.com','Los Ficus 550, Santa Anita',2),(18,'Proveedor2',NULL,NULL,'RUC','10224455678','989774513','proveedor2@gmail.com','Precursores 423, Santa Anita',2);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,7 +586,7 @@ CREATE TABLE `tipousuario` (
   `idTipoUsuario` int NOT NULL AUTO_INCREMENT,
   `nombreTipoUsuario` varchar(75) NOT NULL,
   PRIMARY KEY (`idTipoUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,7 +595,7 @@ CREATE TABLE `tipousuario` (
 
 LOCK TABLES `tipousuario` WRITE;
 /*!40000 ALTER TABLE `tipousuario` DISABLE KEYS */;
-INSERT INTO `tipousuario` VALUES (1,'Administrador'),(2,'Vendedor'),(3,'Encargado Almacen'),(4,'Encargado Preparacion'),(5,'Empleado'),(6,'Cliente');
+INSERT INTO `tipousuario` VALUES (1,'Administrador'),(2,'Vendedor'),(3,'Encargado Almacen'),(4,'Encargado Preparacion'),(5,'Empleado'),(6,'Cliente'),(7,'Proveedor');
 /*!40000 ALTER TABLE `tipousuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -584,7 +646,7 @@ CREATE TABLE `usuario` (
   KEY `FK_Usuario_Tipo_Usuario` (`fk_idTipoUsuario`),
   CONSTRAINT `FK_Usuario_Persona` FOREIGN KEY (`fk_idPersona`) REFERENCES `persona` (`idPersona`),
   CONSTRAINT `FK_Usuario_Tipo_Usuario` FOREIGN KEY (`fk_idTipoUsuario`) REFERENCES `tipousuario` (`idTipoUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -593,7 +655,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'adminSAVYRM','admin1234ADMIN',1,1),(2,'cliente1','admin1234ADMIN',2,6),(3,'cleinte2','admin1234ADMIN',3,6),(4,'cliente3','admin1234ADMIN',4,6),(5,'Thirza2111','Thirza2111',8,6),(6,'Carmen2154','Carmen2154',9,6),(7,'Teodorico2122','Teodorico2122',10,6),(8,'Araceli2149','Araceli2149',11,6),(9,'Juana2160','Juana2160',12,6),(10,'Luis2021124193748','Luis2021124193748',13,6),(11,'Jorge2021124194235','Jorge2021124194235',14,6),(12,'Joaquin2021124194524','Joaquin2021124194524',15,6),(13,'Raquel2021124194943','Raquel2021124194943',16,6);
+INSERT INTO `usuario` VALUES (1,'adminSAVYRM','admin1234ADMIN',1,1),(2,'cliente1','admin1234ADMIN',2,6),(3,'cleinte2','admin1234ADMIN',3,6),(4,'cliente3','admin1234ADMIN',4,6),(5,'Thirza2111','Thirza2111',8,6),(6,'Carmen2154','Carmen2154',9,6),(7,'Teodorico2122','Teodorico2122',10,6),(8,'Araceli2149','Araceli2149',11,6),(9,'Juana2160','Juana2160',12,6),(10,'Luis2021124193748','Luis2021124193748',13,6),(11,'Jorge2021124194235','Jorge2021124194235',14,6),(12,'Joaquin2021124194524','Joaquin2021124194524',15,6),(13,'Raquel2021124194943','Raquel2021124194943',16,6),(14,'Proveedor12021124235034','Proveedor12021124235034',17,7),(15,'Proveedor22021124235139','Proveedor22021124235139',18,7);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -614,4 +676,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-24 21:56:59
+-- Dump completed on 2021-01-25  3:06:29
