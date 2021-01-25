@@ -14,7 +14,6 @@ D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJEC
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\AlmacenRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\SeccionRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Utilities\DateTimeUtilities.java
-D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Containers\SalesReport.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Utilities\MeasurementsUtilities.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Entities\ProductoFormula.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Entities\TipoProducto.java
@@ -35,6 +34,7 @@ D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJEC
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Controllers\TipoPersonaController.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\LogRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\LoteRepository.java
+D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Containers\DashboardStatus.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\PersonaRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\PreparacionRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Entities\Lote.java
@@ -47,12 +47,15 @@ D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Contai
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\ServicioProductoRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\SavyrmApplication.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Controllers\LoteController.java
+D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Containers\LabelAndNodeReport.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Controllers\VentaController.java
+D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Containers\GraphicNode.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\TipoPersonaRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Containers\DataForComparedGraphic.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Entities\TipoPersona.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Respositories\TipoUsuarioRepository.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Controllers\PersonaController.java
+D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\Containers\ServicioProductoWrapper.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Entities\Precio.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Entities\Persona.java
 D:\University\Tesis\Repository\SAVYRM_Backend\SAVYRM\src\main\java\SAVYRM\PROJECT\Controllers\UsuarioController.java
