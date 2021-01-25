@@ -44,6 +44,10 @@ public class Persona {
     @OneToMany(mappedBy = "personaEmpleado", cascade = CascadeType.ALL)
     private Set<Servicio> personaEmpleado;
     
+    @JsonIgnore
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
+    private Set<OrdenCompra> ordenCompra;
+    
     public Persona(){}
 
     public TipoPersona getTipoPersona() {

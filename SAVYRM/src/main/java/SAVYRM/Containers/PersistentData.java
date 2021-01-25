@@ -55,4 +55,8 @@ public class PersistentData {
     
     // TipoUsuario cliente
     public static final int TIPOUSUARIO_CLIENTE_ID = 6;
+    
+    // TipoUsuario proveedor
+    public static final int TIPOUSUARIO_PROVEEDOR_ID = 7;
+    
 }
