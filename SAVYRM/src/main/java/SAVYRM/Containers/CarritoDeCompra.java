@@ -5,6 +5,8 @@
  */
 package SAVYRM.Containers;
 
+import java.util.List;
+
 /**
  *
  * @author TORELLANA
@@ -20,7 +22,9 @@ public class CarritoDeCompra {
     double precioTotalProducto;
     String fechaEntrega;
     String fechaEntregaPrevista;
-
+    
+    List<OrdenDeCompraAfectadas> ordenDeCompraAfectadas;
+    
     public int getIdProducto() {
         return idProducto;
     }
@@ -99,5 +103,13 @@ public class CarritoDeCompra {
 
     public void setFechaEntregaPrevista(String fechaEntregaPrevista) {
         this.fechaEntregaPrevista = fechaEntregaPrevista;
+    }
+
+    public List<OrdenDeCompraAfectadas> getOrdenDeCompraAfectadas() {
+        return ordenDeCompraAfectadas;
+    }
+
+    public void setOrdenDeCompraAfectadas(List<OrdenDeCompraAfectadas> ordenDeCompraAfectadas) {
+        this.ordenDeCompraAfectadas = ordenDeCompraAfectadas;
     }
 }

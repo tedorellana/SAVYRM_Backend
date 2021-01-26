@@ -2,12 +2,15 @@ package SAVYRM.PROJECT.Controllers;
 
 import SAVYRM.Containers.CarritoDeCompraWrapper;
 import SAVYRM.Containers.CarritoDeCompra;
+import SAVYRM.Containers.OrdenDeCompraAfectadas;
 import SAVYRM.Containers.PersistentData;
+import SAVYRM.PROJECT.Entities.OrdenCompraProducto;
 import SAVYRM.PROJECT.Entities.Persona;
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
 import SAVYRM.PROJECT.Entities.Servicio;
 import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Entities.TipoServicio;
+import SAVYRM.PROJECT.Respositories.OrdenCompraProductoRepository;
 import SAVYRM.PROJECT.Respositories.PrecioRepository;
 import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
@@ -39,6 +42,9 @@ public class VentaController {
     @Autowired
     private PrecioRepository precioRepository;
     
+    @Autowired
+    private OrdenCompraProductoRepository ordenCompraRepositoryRepository;
+    
     @PostMapping(path="/RegistrarVenta")
     @ResponseBody
     public void RegistrarVenta(@RequestBody CarritoDeCompraWrapper carritoDeCompraWrapper)
@@ -61,7 +67,7 @@ public class VentaController {
         empleado.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idEmpleado);
         
         // Establece cliente
-        System.out.println("Ser Client.");
+        System.out.println("Set Client.");
         Persona cliente = new Persona();
         cliente.setIdPersona(carritoDeCompraWrapper.getDetallesServicio().idCliente);
         
@@ -105,6 +111,17 @@ public class VentaController {
             System.out.println("save ServicioProducto: " + prod.getNombreProducto());
             // Guarda la producto
             servicioProductoRepository.save(servicioProducto);
+            
+            
+            // Updates orders based with new availability
+            for (OrdenDeCompraAfectadas orderAffected : prod.getOrdenDeCompraAfectadas()) {
+                System.out.println("Set orderAffected -> " +  orderAffected.getIdOrdercompraproducto() + " " + orderAffected.getCantidadDisponibleOrdenCompraProducto());
+                OrdenCompraProducto ocp = ordenCompraRepositoryRepository.findById(orderAffected.getIdOrdercompraproducto()).get();
+                
+                ocp.setCantidadDisponibleOrdenCompraProducto(orderAffected.getCantidadDisponibleOrdenCompraProducto());
+
+                ordenCompraRepositoryRepository.save(ocp);
+            }
         }
     }
     

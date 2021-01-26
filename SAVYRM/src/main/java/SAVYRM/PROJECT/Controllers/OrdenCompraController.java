@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @Controller
-@RequestMapping(path="/OrdenCompra") 
+@RequestMapping(path="/OrdenCompraProducto") 
 public class OrdenCompraController {
     @Autowired
     private OrdenCompraProductoRepository ordenCompraProductoRepository;
