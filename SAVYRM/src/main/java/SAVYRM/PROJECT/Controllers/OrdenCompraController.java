@@ -3,14 +3,17 @@ package SAVYRM.PROJECT.Controllers;
 import SAVYRM.Containers.ProductoBase;
 import SAVYRM.Containers.ProductoSeccionPrecio;
 import SAVYRM.PROJECT.Entities.Almacen;
+import SAVYRM.PROJECT.Entities.OrdenCompra;
 import SAVYRM.PROJECT.Entities.OrdenCompraProducto;
 import SAVYRM.PROJECT.Entities.Producto;
 import SAVYRM.PROJECT.Entities.ProductoFormula;
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
 import SAVYRM.PROJECT.Entities.Seccion;
+import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Entities.TipoProducto;
 import SAVYRM.PROJECT.Entities.UnidadMedida;
 import SAVYRM.PROJECT.Respositories.OrdenCompraProductoRepository;
+import SAVYRM.PROJECT.Respositories.OrdenCompraRepository;
 import SAVYRM.PROJECT.Respositories.ProductoRepository;
 import SAVYRM.PROJECT.Respositories.ProductoSeccionRepository;
 import SAVYRM.PROJECT.Utilities.MeasurementsUtilities;
@@ -40,11 +43,42 @@ public class OrdenCompraController {
     @Autowired
     private OrdenCompraProductoRepository ordenCompraProductoRepository;
     
+    @Autowired
+    private OrdenCompraRepository ordenCompraRepository;
+    
     @PostMapping(path="/OrdersPerProduct")
     @ResponseBody
     public Iterable<OrdenCompraProducto> OrdersPerProduct(@RequestBody String OrdersPerProduct)
     {   
         System.out.println("OrdersPerProduct()->" + OrdersPerProduct);
         return ordenCompraProductoRepository.findByProductoIdProductoOrderByFechaEntregaPrevistaOrdenCompraProductoDesc(Integer.parseInt(OrdersPerProduct));
+    }
+    
+    @GetMapping(path="/GetAllOrders")
+    public @ResponseBody Iterable<OrdenCompra> GetAllOrders()
+    {
+        System.out.println("GetAllOrders()");
+        return ordenCompraRepository.findAll();
+    }
+    
+    @PostMapping(path="/FindOrderProductoByOrderId")
+    @ResponseBody
+    public Iterable<OrdenCompraProducto> FindOrderProductoByOrderId(@RequestBody String idOrder)
+    {   
+        System.out.println("FindOrderProductoByOrderId()<-");
+        
+        if (idOrder == null) {
+            System.out.println("idOrder is missing");
+            return null;
+        }
+    
+        return ordenCompraProductoRepository.findByOrdenCompraIdOrdencompra(Integer.parseInt(idOrder));
+    }
+    
+    @GetMapping(path="/GetAllOrdersProducto")
+    public @ResponseBody Iterable<OrdenCompraProducto> GetAllOrdersProducto()
+    {
+        System.out.println("GetAllOrdersProducto()");
+        return ordenCompraProductoRepository.findAll();
     }
 }

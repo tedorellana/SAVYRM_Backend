@@ -11,4 +11,6 @@ public interface OrdenCompraProductoRepository extends PagingAndSortingRepositor
     Iterable<OrdenCompraProducto> findAllByProductoIdProducto(Integer idProducto);
     
     Iterable<OrdenCompraProducto> findByProductoIdProductoOrderByFechaEntregaPrevistaOrdenCompraProductoDesc(Integer idProducto);
+    
+    Iterable<OrdenCompraProducto> findByOrdenCompraIdOrdencompra(Integer idOrdenCompra);
 }

@@ -99,4 +99,11 @@ public class PersonaController {
                 
         return clientAdded;
     }
+    
+    @GetMapping(path="/GetAllProviders")
+    public @ResponseBody Iterable<Persona> GetAllProviders() {
+        System.out.println("GetAllProviders()");
+        
+        return personaRepository.findByUsuarioTipoUsuarioIdTipoUsuario(PersistentData.TIPOUSUARIO_PROVEEDOR_ID);
+    }
 }
