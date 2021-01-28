@@ -181,7 +181,7 @@ public class ProductoController {
         System.out.println("GetAllProductosParaVenta()->");
 
         try {
-            return productoSeccionRepository.findProductoSeccionWithPrecio();
+            return productoSeccionRepository.findProductoSeccionWithPrecio("2021-01-28 00:00:00");
         }
         catch(Exception ex) {
             System.out.println("ERROR (GetAllProductosParaVenta): " + ex);

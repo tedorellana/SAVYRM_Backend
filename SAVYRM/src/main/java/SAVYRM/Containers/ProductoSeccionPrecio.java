@@ -7,6 +7,7 @@ public interface ProductoSeccionPrecio {
     Integer getIdProductoSeccion();
     Double getCantidadProductoSeccion();
     String getFechaIngreso();
+    String getFechaCaducidadLote();
     Integer getIdPrecio();
     Double getUnitarioPrecio();
     String getVigentePrecio();
