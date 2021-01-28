@@ -93,6 +93,4 @@ public class Precio {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    
-    
 }

@@ -59,4 +59,9 @@ public class PersistentData {
     // TipoUsuario proveedor
     public static final int TIPOUSUARIO_PROVEEDOR_ID = 7;
     
+    // Precio vigenteId
+    public static final int PRECIO_VIGENTE_ID = 1;
+    
+    // Precio NO VIGENTE
+    public static final int PRECIO_NO_VIGENTE_ID = 0;
 }

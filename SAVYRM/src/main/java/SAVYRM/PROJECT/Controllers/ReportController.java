@@ -9,10 +9,12 @@ import SAVYRM.PROJECT.Entities.ServicioProducto;
 import SAVYRM.PROJECT.Respositories.ServicioProductoRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,7 +35,7 @@ public class ReportController {
     }
     
     @GetMapping(path="/GetAllSales")
-    public @ResponseBody Iterable<LabelAndNodeReport> GetAllSales()
+    public @ResponseBody Iterable<LabelAndNodeReport> GetAllSales(@RequestBody Map<String,String> allParams)
     {
         System.out.println("GetAllSales()");
         return servicioProductoRepository.findAllSales(PersistentData.VENTA_IDSERVICIO);
@@ -43,7 +45,7 @@ public class ReportController {
     public @ResponseBody Iterable<LabelAndNodeReport> GetRevenuePerDay()
     {
         System.out.println("GetRevenuePerDay()");
-        return servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
+        return servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, "2015-07-02 22:04:47.153000", "2021-07-02 22:04:47.153000");
     }
     
     @GetMapping(path="/GetRevenuePerProduct")
@@ -67,7 +69,7 @@ public class ReportController {
         System.out.println("RevenueStatusCompared()");
         DataForComparedGraphic result = new DataForComparedGraphic();
         
-        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, "2015-07-02 22:04:47.153000", "2021-07-02 22:04:47.153000");
         result.setCurrentLine(graphicCurrentNodes);
         
         ArrayList<GraphicNode> graphicAverageNodes = new ArrayList<>();
@@ -195,7 +197,7 @@ public class ReportController {
         System.out.println("SimpleRevenueStatusCompared()");
         DashboardStatus result = new DashboardStatus();
         
-        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO);
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, "2015-07-02 22:04:47.153000", "2021-07-02 22:04:47.153000");
                 
         if (graphicCurrentNodes.isEmpty()) {
             System.out.println("baseLine for graphics cannot be empty");

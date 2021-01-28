@@ -1,10 +1,13 @@
 package SAVYRM.PROJECT.Controllers;
 
+import SAVYRM.Containers.OrderProduct;
 import SAVYRM.Containers.ProductoBase;
 import SAVYRM.Containers.ProductoSeccionPrecio;
+import SAVYRM.Containers.PurchaseOrderWrapper;
 import SAVYRM.PROJECT.Entities.Almacen;
 import SAVYRM.PROJECT.Entities.OrdenCompra;
 import SAVYRM.PROJECT.Entities.OrdenCompraProducto;
+import SAVYRM.PROJECT.Entities.Persona;
 import SAVYRM.PROJECT.Entities.Producto;
 import SAVYRM.PROJECT.Entities.ProductoFormula;
 import SAVYRM.PROJECT.Entities.ProductoSeccion;
@@ -80,5 +83,45 @@ public class OrdenCompraController {
     {
         System.out.println("GetAllOrdersProducto()");
         return ordenCompraProductoRepository.findAll();
+    }
+    
+    @PostMapping(path="/SaveOrder")
+    @ResponseBody
+    public void SaveOrder(@RequestBody PurchaseOrderWrapper purchaseOrderWrapper)
+    {   
+        System.out.println("SaveOrder()<-");
+        
+        // Set provider
+        Persona persona = new Persona();
+        persona.setIdPersona(purchaseOrderWrapper.getProveedorId());
+        
+        // Set Orden compra
+        OrdenCompra orden = new OrdenCompra();
+        orden.setFechaRegistroOrdencompra(purchaseOrderWrapper.getFechaRegistroOrdencompra());
+        orden.setPrecioTotalOrdencompra(purchaseOrderWrapper.getPrecioTotalOrdencompra());
+        orden.setPersona(persona);
+        
+        System.out.println("Saving order");
+        orden = ordenCompraRepository.save(orden);
+        
+        for (OrderProduct newOrderProd : purchaseOrderWrapper.getProductosNewOrderList()) {
+            
+            // Set product
+            Producto producto = new Producto();
+            producto.setIdProducto(newOrderProd.getIdProducto());
+            
+            // Set OrderCompraProducto
+            OrdenCompraProducto ocp = new OrdenCompraProducto();
+            ocp.setCantidadOrdenCompraProducto(newOrderProd.getCantidadOrdenCompraProducto());
+            ocp.setPrecioOrdenCompraProducto(newOrderProd.getPrecioOrdenCompraProducto());
+            ocp.setFechaEntregaPrevistaOrdenCompraProducto(newOrderProd.getFechaEntregaPrevistaOrdenCompraProducto());
+            ocp.setOrdenCompra(orden);
+            ocp.setProducto(producto);
+            
+            System.out.println("Saving orderproduct");
+            
+            ordenCompraProductoRepository.save(ocp);
+        }
+        System.out.println("SaveOrder()->");
     }
 }

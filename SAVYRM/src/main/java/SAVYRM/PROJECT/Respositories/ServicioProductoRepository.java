@@ -19,10 +19,11 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
                 "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
-                "where ts.idTipoServicio = '2'\n" +
+                "where ts.idTipoServicio = ?1\n" +
+                "and s.horaInicioServicio >= ?2 and s.horaFinServicio <= ?3\n" +
                 "GROUP BY p.idProducto", 
             nativeQuery = true)
-    List<LabelAndNodeReport> findAllSales(Integer idTipoServicio);
+    List<LabelAndNodeReport> findAllSales(Integer idTipoServicio, String fechaInicio, String fechaFin);
     
     // find revenue per date
     @Query(
@@ -31,10 +32,11 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
                 "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
-                "where ts.idTipoServicio = '2'\n" +
+                "where ts.idTipoServicio = ?1\n" +
+                "and s.horaInicioServicio >= ?2 and s.horaFinServicio <= ?3\n" +
                 "GROUP BY YEAR(s.horaInicioServicio), MONTH(s.horaInicioServicio), DAY(s.horaInicioServicio)", 
             nativeQuery = true)
-    List<LabelAndNodeReport> findRevenuePerDay(Integer idTipoServicio);
+    List<LabelAndNodeReport> findRevenuePerDay(Integer idTipoServicio, String fechaInicio, String fechaFin);
     
     // find the average of sales per day
     @Query(
@@ -43,10 +45,11 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
                 "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
-                "where ts.idTipoServicio = '2'\n" +
+                "where ts.idTipoServicio = ?1\n" +
+                "and s.horaInicioServicio >= ?2 and s.horaFinServicio <= ?3\n" +
                 "GROUP BY YEAR(s.horaInicioServicio), MONTH(s.horaInicioServicio), DAY(s.horaInicioServicio)", 
             nativeQuery = true)
-    List<LabelAndNodeReport> findSalesAveragePerDay(Integer idTipoServicio);
+    List<LabelAndNodeReport> findSalesAveragePerDay(Integer idTipoServicio, String fechaInicio, String fechaFin);
     
     // find revenue per product
     @Query(
@@ -55,10 +58,11 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
                 "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
-                "where ts.idTipoServicio = '2'\n" +
+                "where ts.idTipoServicio = ?1\n" +
+                "and s.horaInicioServicio >= ?2 and s.horaFinServicio <= ?3\n" +
                 "GROUP BY p.idProducto;", 
             nativeQuery = true)
-    List<LabelAndNodeReport> findRevenuePerProduct(Integer idTipoServicio);    
+    List<LabelAndNodeReport> findRevenuePerProduct(Integer idTipoServicio, String fechaInicio, String fechaFin);   
     
     // find the sales atended per employee
     @Query(
@@ -68,7 +72,8 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "inner join savyrm.tiposervicio as ts on ts.idTipoServicio = s.fk_idTipoServicio\n" +
                 "inner join savyrm.productoSeccion as ps on ps.idProductoSeccion = sp.fk_idProductoSeccion\n" +
                 "inner join savyrm.producto as p on p.idProducto = ps.fk_idProducto\n" +
-                "where ts.idTipoServicio = '2'\n" +
+                "where ts.idTipoServicio = ?1\n" +
+                "and s.horaInicioServicio >= ?2 and s.horaFinServicio <= ?3\n" +
                 "GROUP BY s.idPersonaEmpleado;", 
             nativeQuery = true)
     List<LabelAndNodeReport> findSalesAtendedPerEmployeee(Integer idTipoServicio);
