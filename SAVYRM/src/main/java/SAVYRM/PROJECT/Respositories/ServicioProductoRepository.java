@@ -76,7 +76,7 @@ public interface ServicioProductoRepository extends PagingAndSortingRepository<S
                 "and s.horaInicioServicio >= ?2 and s.horaFinServicio <= ?3\n" +
                 "GROUP BY s.idPersonaEmpleado;", 
             nativeQuery = true)
-    List<LabelAndNodeReport> findSalesAtendedPerEmployeee(Integer idTipoServicio);
+    List<LabelAndNodeReport> findSalesAtendedPerEmployeee(Integer idTipoServicio, String fechaInicio, String fechaFin);   
     
     List<ServicioProducto> findByIdServicioProductoSeccion(Integer idServicioProductoSeccion);
     

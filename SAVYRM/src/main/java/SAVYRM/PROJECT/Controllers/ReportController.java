@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,42 +35,47 @@ public class ReportController {
         return servicioProductoRepository.findAll();
     }
     
-    @GetMapping(path="/GetAllSales")
-    public @ResponseBody Iterable<LabelAndNodeReport> GetAllSales(@RequestBody Map<String,String> allParams)
+    @PostMapping(path="/GetAllSales")
+    @ResponseBody
+    public Iterable<LabelAndNodeReport> GetAllSales(@RequestBody Map<String,String> allParams)
     {
         System.out.println("GetAllSales()");
-        return servicioProductoRepository.findAllSales(PersistentData.VENTA_IDSERVICIO);
+        return servicioProductoRepository.findAllSales(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
     }
     
-    @GetMapping(path="/GetRevenuePerDay")
-    public @ResponseBody Iterable<LabelAndNodeReport> GetRevenuePerDay()
+    @PostMapping(path="/GetRevenuePerDay")
+    @ResponseBody
+    public Iterable<LabelAndNodeReport> GetRevenuePerDay(@RequestBody Map<String,String> allParams)
     {
         System.out.println("GetRevenuePerDay()");
-        return servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, "2015-07-02 22:04:47.153000", "2021-07-02 22:04:47.153000");
+        return servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
     }
     
-    @GetMapping(path="/GetRevenuePerProduct")
-    public @ResponseBody Iterable<LabelAndNodeReport> GetRevenuePerProduct()
+    @PostMapping(path="/GetRevenuePerProduct")
+    @ResponseBody
+    public Iterable<LabelAndNodeReport> GetRevenuePerProduct(@RequestBody Map<String,String> allParams)
     {
         System.out.println("GetRevenuePerProduct()");
-        return servicioProductoRepository.findRevenuePerProduct(PersistentData.VENTA_IDSERVICIO);
+        return servicioProductoRepository.findRevenuePerProduct(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
     }
     
-    @GetMapping(path="/GetSalesAtendedPerEmployee")
-    public @ResponseBody Iterable<LabelAndNodeReport> GetSalesAtendedPerEmployee()
+    @PostMapping(path="/GetSalesAtendedPerEmployee")
+    @ResponseBody
+    public Iterable<LabelAndNodeReport> GetSalesAtendedPerEmployee(@RequestBody Map<String,String> allParams)
     {
         System.out.println("GetSalesAtendedPerClient()");
-        return servicioProductoRepository.findSalesAtendedPerEmployeee(PersistentData.VENTA_IDSERVICIO);
+        return servicioProductoRepository.findSalesAtendedPerEmployeee(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
     }
     
     // Get the revenue per day compared with the average
-    @GetMapping(path="/RevenueStatusCompared")
-    public @ResponseBody DataForComparedGraphic RevenueStatusCompared()
+    @PostMapping(path="/RevenueStatusCompared")
+    @ResponseBody
+    public DataForComparedGraphic RevenueStatusCompared(@RequestBody Map<String,String> allParams)
     {
         System.out.println("RevenueStatusCompared()");
         DataForComparedGraphic result = new DataForComparedGraphic();
         
-        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, "2015-07-02 22:04:47.153000", "2021-07-02 22:04:47.153000");
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
         result.setCurrentLine(graphicCurrentNodes);
         
         ArrayList<GraphicNode> graphicAverageNodes = new ArrayList<>();
@@ -105,13 +111,14 @@ public class ReportController {
         return result;
     }
     
-    @GetMapping(path="/SalesStatusCompared")
-    public @ResponseBody DataForComparedGraphic SalesStatusCompared()
+    @PostMapping(path="/SalesStatusCompared")
+    @ResponseBody
+    public DataForComparedGraphic SalesStatusCompared(@RequestBody Map<String,String> allParams)
     {
         System.out.println("SalesStatusCompared()");
         DataForComparedGraphic result = new DataForComparedGraphic();
         
-        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findSalesAveragePerDay(PersistentData.VENTA_IDSERVICIO);
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findSalesAveragePerDay(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
         result.setCurrentLine(graphicCurrentNodes);
         
         ArrayList<GraphicNode> graphicAverageNodes = new ArrayList<>();
@@ -148,13 +155,14 @@ public class ReportController {
     }
     
     // Get the sale status compared in 2 node: current and expected
-    @GetMapping(path="/SimpleSalesStatusCompared")
-    public @ResponseBody DashboardStatus SimpleSalesStatusCompared()
+    @PostMapping(path="/SimpleSalesStatusCompared")
+    @ResponseBody
+    public DashboardStatus SimpleSalesStatusCompared(@RequestBody Map<String,String> allParams)
     {
         System.out.println("SimpleSalesStatusCompared()");
         DashboardStatus result = new DashboardStatus();
         
-        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findSalesAveragePerDay(PersistentData.VENTA_IDSERVICIO);
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findSalesAveragePerDay(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
                 
         if (graphicCurrentNodes.isEmpty()) {
             System.out.println("baseLine for graphics cannot be empty");
@@ -190,14 +198,16 @@ public class ReportController {
         return result;
     }
     
+    
     // Get the sale status compared in 2 node: current and expected
-    @GetMapping(path="/SimpleRevenueStatusCompared")
-    public @ResponseBody DashboardStatus SimpleRevenueStatusCompared()
+    @PostMapping(path="/SimpleRevenueStatusCompared")
+    @ResponseBody
+    public DashboardStatus SimpleRevenueStatusCompared(@RequestBody Map<String,String> allParams)
     {
         System.out.println("SimpleRevenueStatusCompared()");
         DashboardStatus result = new DashboardStatus();
         
-        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, "2015-07-02 22:04:47.153000", "2021-07-02 22:04:47.153000");
+        List<LabelAndNodeReport> graphicCurrentNodes = servicioProductoRepository.findRevenuePerDay(PersistentData.VENTA_IDSERVICIO, allParams.get("fechaInicio"), allParams.get("fechaFin"));
                 
         if (graphicCurrentNodes.isEmpty()) {
             System.out.println("baseLine for graphics cannot be empty");
