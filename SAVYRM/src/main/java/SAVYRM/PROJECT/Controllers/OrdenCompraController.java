@@ -54,7 +54,7 @@ public class OrdenCompraController {
     public Iterable<OrdenCompraProducto> OrdersPerProduct(@RequestBody String OrdersPerProduct)
     {   
         System.out.println("OrdersPerProduct()->" + OrdersPerProduct);
-        return ordenCompraProductoRepository.findByProductoIdProductoOrderByFechaEntregaPrevistaOrdenCompraProductoDesc(Integer.parseInt(OrdersPerProduct));
+        return ordenCompraProductoRepository.findByProductoIdProductoOrderByFechaEntregaPrevistaOrdenCompraProductoAsc(Integer.parseInt(OrdersPerProduct));
     }
     
     @GetMapping(path="/GetAllOrders")
@@ -113,6 +113,7 @@ public class OrdenCompraController {
             // Set OrderCompraProducto
             OrdenCompraProducto ocp = new OrdenCompraProducto();
             ocp.setCantidadOrdenCompraProducto(newOrderProd.getCantidadOrdenCompraProducto());
+            ocp.setCantidadDisponibleOrdenCompraProducto(newOrderProd.getCantidadOrdenCompraProducto());
             ocp.setPrecioOrdenCompraProducto(newOrderProd.getPrecioOrdenCompraProducto());
             ocp.setFechaEntregaPrevistaOrdenCompraProducto(newOrderProd.getFechaEntregaPrevistaOrdenCompraProducto());
             ocp.setOrdenCompra(orden);

@@ -14,4 +14,6 @@ public interface ServicioRepository extends PagingAndSortingRepository<Servicio,
     Optional<Servicio> findByIdServicio(Integer idServicio);
     
     List<Servicio> findByTipoServicioIdTipoServicio(Integer idTipoServicio);
+    
+    List<Servicio> findByTipoServicioIdTipoServicioOrderByHoraFinServicioDesc(Integer idTipoServicio);
 }

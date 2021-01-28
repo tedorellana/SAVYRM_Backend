@@ -68,7 +68,7 @@ public class ServicioController {
         //Should be replaced to get ID from data base
         int idVentas = 2;
         
-        List<Servicio> result = servicioRepository.findByTipoServicioIdTipoServicio(idVentas);
+        List<Servicio> result = servicioRepository.findByTipoServicioIdTipoServicioOrderByHoraFinServicioDesc(idVentas);
         System.out.println("Result list size: " + result.size());
         
         return result;
